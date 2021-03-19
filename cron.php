@@ -2,10 +2,11 @@
 
 $bot_token = "1717660927:AAH-mr5L77Ae2WbHdWDySmabO2hrunsAyLc";
 $channel_id = "-1001136654503";
+if($_ENV["APP_RUNNING"] == 1) {
+    sendGETMessageToChannel(date("H:i:s"));
+}
 
-sendGETMessage(date("H:i:s"));
-
-function sendGETMessage($message) {
+function sendGETMessageToChannel($message) {
 	global $bot_token, $channel_id;
     $url = "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$channel_id&text=$message";
     $options = array(
