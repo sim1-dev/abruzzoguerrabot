@@ -82,5 +82,13 @@ if(strpos($text, "/avvia") === 0)
     }
 }
 
+if(strpos($text, "/env") === 0)
+{
+    global $username, $app_running;
+    sendGETMessageToChannel("app_running: ".$app_running);
+    sendGETMessageToChannel("ENV: ".$ENV['APP_RUNNING']);
+}
+
+
 ?>
 
