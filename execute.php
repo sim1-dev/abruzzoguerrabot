@@ -2,7 +2,7 @@
 
 //APP VARS
 
-global $username, $app_running;
+global $username;
 $app_running = getenv('APP_RUNNING');
 $response = '';
 $channel_id = "-1001136654503";
@@ -69,12 +69,11 @@ if(strpos($text, "/start") === 0)
 
 if(strpos($text, "/avvia") === 0)
 {
-    global $username, $app_running;
+    $app_running = getenv('APP_RUNNING');
     if($username == "TeamBallo") {
         if($app_running == 0) {
             //shell_exec("heroku config:set APP_RUNNING=1");
-            sendGETMessage(putenv("APP_RUNNING=1"));
-            $app_running = getenv('APP_RUNNING');
+            putenv("APP_RUNNING=1");
             sendGETMessage("app_running: ".$app_running);
             sendGETMessage("[OK] Guerra avviata!");
         } else {
