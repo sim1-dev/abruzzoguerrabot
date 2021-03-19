@@ -1,13 +1,18 @@
 <?php 
 
+//APP VARS
+
+global $username;
+$response = '';
+$channel_id = "-1001136654503";
+$bot_token = "1717660927:AAH-mr5L77Ae2WbHdWDySmabO2hrunsAyLc";
+
 $content = file_get_contents("php://input");
 $update = json_decode($content, true);
 if(!$update)
 {
   exit;
 }
-
-global $username;
 
 $message = isset($update['message']) ? $update['message'] : "";
 $messageId = isset($message['message_id']) ? $message['message_id'] : "";
@@ -18,12 +23,7 @@ $text = trim($text);
 $text = strtolower($text);
 header("Content-Type: application/json");
 
-$response = '';
-$channel_id = "-1001136654503";
-$bot_token = "1717660927:AAH-mr5L77Ae2WbHdWDySmabO2hrunsAyLc";
-
 function sendGETMessage($message) {
-	
 	global $bot_token, $chatId;
     $url = "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$chatId&text=$message";
     $options = array(
