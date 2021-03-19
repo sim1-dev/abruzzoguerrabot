@@ -71,6 +71,7 @@ if(strpos($text, "/avvia") === 0)
     global $username;
     if($username == "TeamBallo") {
         if($_ENV["APP_RUNNING"] == 0) {
+            $_ENV["APP_RUNNING"] = 1;
             sendGETMessage("[OK] Guerra avviata!");
         } else {
             sendGETMessage("[NO] Guerra già in esecuzione!");
