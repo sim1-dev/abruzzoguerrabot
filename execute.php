@@ -72,8 +72,8 @@ if(strpos($text, "/avvia") === 0)
     global $username, $app_running;
     if($username == "TeamBallo") {
         if($app_running == 0) {
-            putenv("APP_RUNNING=1");
-            shell_exec("heroku config:set APP_RUNNING=1");
+            //shell_exec("heroku config:set APP_RUNNING=1");
+            sendGETMessage(putenv("APP_RUNNING=1"));
             sendGETMessage("app_running: ".$app_running);
             sendGETMessage("[OK] Guerra avviata!");
         } else {
