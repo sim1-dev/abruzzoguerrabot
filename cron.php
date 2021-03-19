@@ -5,6 +5,8 @@ $channel_id = "-1001136654503";
 if($_ENV["APP_RUNNING"] == 1) {
     sendGETMessageToChannel(date("H:i:s"));
     //sendGETMessage("TEST BOT NOTIFICATION");
+} else {
+    sendGETMessageToChannel(date("APP NOT RUNNING"));
 }
 
 function sendGETMessageToChannel($message) {
