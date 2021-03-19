@@ -2,7 +2,8 @@
 
 $bot_token = "1717660927:AAH-mr5L77Ae2WbHdWDySmabO2hrunsAyLc";
 $channel_id = "-1001136654503";
-if($_ENV["APP_RUNNING"] == 1) {
+$app_running = getenv('APP_RUNNING');
+if($app_running == 1) {
     sendGETMessageToChannel(date("H:i:s"));
     //sendGETMessage("TEST BOT NOTIFICATION");
 } else {
