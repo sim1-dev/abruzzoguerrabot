@@ -2,7 +2,8 @@
 
 //APP VARS
 
-global $username;
+global $username, $app_running;
+$app_running = getenv('APP_RUNNING');
 $response = '';
 $channel_id = "-1001136654503";
 $bot_token = "1717660927:AAH-mr5L77Ae2WbHdWDySmabO2hrunsAyLc";
@@ -68,10 +69,10 @@ if(strpos($text, "/start") === 0)
 
 if(strpos($text, "/avvia") === 0)
 {
-    global $username;
+    global $username, $app_running;
     if($username == "TeamBallo") {
-        if($_ENV["APP_RUNNING"] == 0) {
-            $_ENV["APP_RUNNING"] = 1;
+        if($app_running == 0) {
+            putenv("APP_RUNNING=1");
             sendGETMessage("[OK] Guerra avviata!");
         } else {
             sendGETMessage("[NO] Guerra già in esecuzione!");
