@@ -1,0 +1,6 @@
+<?php 
+
+//ADMIN COMMANDS SECTION
+
+?>
+
