@@ -198,7 +198,6 @@ if(strpos($text, "/forzascontro") === 0)
                         sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].") !");
                     } else {
                         sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> !<b>");
-                        sleep(1);
                         sendGETMessageToChannel("<b>".($realSize - 1)."</b> comuni rimanenti.");
                         $municipalities->addKill($w["id"]);
                     }
