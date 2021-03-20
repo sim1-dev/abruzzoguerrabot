@@ -204,7 +204,7 @@ if(strpos($text, "/forzascontro") === 0)
                     unset($alive);
                 } else {
                     //TODO IMPLEMENT STABLE METHOD GET SINGLE ALIVE MUNICIPALITY
-                    $champion = $municipalites->getRandomMunicipality();
+                    $champion = $municipalities->getRandomMunicipality();
                     initGuerra(0);
                     sendGETMessageToChannel("Il comune di ".$champion['name']." ha vinto la sfida tra comuni!");
                 }
