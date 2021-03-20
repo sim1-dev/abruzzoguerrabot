@@ -176,9 +176,9 @@ if(strpos($text, "/forzascontro") === 0)
             //sendGETMessageToChannel("APP RUNNING"); //TODO REMOVE
             $alive = $municipalities->getAliveMunicipalities();	
             $realSize = is_array($alive) ? sizeOf($alive) : 0;
-            sendGETMessageToChannel(implode(",", $alive));
+            sendGETMessageToChannel(implode(",", $alive[0]));
             sendGETMessageToChannel($realSize);
-                if((is_array($alive) && sizeOf($alive)) > 1) {
+                if(is_array($alive) && $realSize > 1) {
                     //START WEIGHT VALUES
                     for($i = 0; $i < $realSize; $i++) {
                         while($alive[$i]["weight"] > 1) {
@@ -202,7 +202,7 @@ if(strpos($text, "/forzascontro") === 0)
                     $municipalities->updateMunicipalityWeight($l["id"], $l["weight"] - 1);
                     //INCREASE WINNER WEIGHT
                     $municipalities->updateMunicipalityWeight($w["id"], $w["weight"] + 1);
-                    unset($alive);
+                    //unset($alive);
                 } else {
                     //TODO IMPLEMENT STABLE METHOD GET SINGLE ALIVE MUNICIPALITY
                     sendGETMessageToChannel($alive);
