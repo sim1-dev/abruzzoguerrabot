@@ -86,7 +86,7 @@ if(strpos($text, "/broadcast") === 0)
 {
     global $username;
     if($username == "TeamBallo") {
-        sendGETMessage($text);
+        sendGETMessageToChannel($text);
     } else {
         sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
     }
@@ -101,8 +101,8 @@ if(strpos($text, "/avvia") === 0)
         if($app_running == 0) {
             sendGETMessage($app_settings);
             //shell_exec("heroku config:set APP_RUNNING=1");
-            //$entity->updateSettingField(1, 'app_running', 1);
-            $entity->updateSettingRunning(1, 1);
+            $entity->updateSettingField(1, 'app_running', 1);
+            //$entity->updateSettingRunning(1, 1);
             sendGETMessage("app_running: ".$app_running);
             sendGETMessage("[OK] Guerra avviata!");
         } else {
@@ -116,8 +116,9 @@ if(strpos($text, "/avvia") === 0)
 if(strpos($text, "/env") === 0)
 {
     global $username, $entity;
-  //  sendGETMessage(getenv("DB_DRIVER"));
-    sendGETMessage($entity->getActiveSetting()["app_running"]);
+    sendGETMessage(getenv("CHANNEL_ID"));
+    sendGETMessage(getenv("BOT_TOKEN"));
+    sendGETMessage($entity->getActiveSetting()[0]["app_running"]);
 }
 
 
