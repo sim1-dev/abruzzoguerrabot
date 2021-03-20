@@ -104,7 +104,7 @@ if(strpos($text, "/env") === 0)
 {
     global $username, $entity;
   //  sendGETMessage(getenv("DB_DRIVER"));
-    sendGETMessage($entity->getActiveSetting["app_running"]);
+    sendGETMessage($entity->getActiveSetting()["app_running"]);
 }
 
 
