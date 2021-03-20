@@ -57,6 +57,7 @@ if(strpos($text, "/comunerandom") === 0)
     global $username, $municipalities;
     if($username == "TeamBallo") {
         $random = $municipalities->getRandomMunicipality();
+        sendGETMessage($random);
         sendGETMessage($random["name"]);
     } else {
         sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
