@@ -3,9 +3,10 @@
 require_once("db.php");
 
 //APP VARS
-$entity = new DB;
 
 global $username, $entity, $app_settings;
+
+$entity = new DB;
 
 $app_settings = $entity->getActiveSetting();
 
@@ -93,7 +94,7 @@ if(strpos($text, "/avvia") === 0)
 if(strpos($text, "/env") === 0)
 {
     global $username, $entity;
-    sendGETMessage(env("DB_DRIVER"));
+    sendGETMessage(getenv("DB_DRIVER"));
     sendGETMessage($entity);
     sendGETMessage("app_running: ".$app_running);
 }
