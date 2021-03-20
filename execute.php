@@ -63,17 +63,6 @@ if(strpos($text, "/comunerandom") === 0) //TEST
     }
 }
 
-if(strpos($text, "/uccisioni") === 0)
-{
-    global $username, $municipalities;
-    if($username == "TeamBallo") {
-        $kills = $municipalities->getKillsByName(str_replace("/uccisioni  ","",$text));
-        sendGETMessage($kills);
-    } else {
-        sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
-    }
-}
-
 /*if(strpos($text, "/morti") === 0) //TEST
 {
     global $username, $municipalities;
@@ -220,8 +209,8 @@ if(strpos($text, "/forzascontro") === 0)
                     //TODO IMPLEMENT STABLE METHOD GET SINGLE ALIVE MUNICIPALITY
                     $champion = $municipalities->getRandomMunicipality();
                     sendGETMessageToChannel("👑 Il comune di <b>".$champion['name']."</b> ha vinto la sfida tra comuni! 👑");
-                    sleep(5);
                     $topkillers = $municipalities->getKillsHighscore();
+                    error_log(implode(",", $topkillers));
                     sendGETMessageToChannel("Comuni con più uccisioni: <br> 
                                             1) <b> ".$topkillers[0]['name']." </b> - <b>".$topkillers[0]['kills']."</b> 👑 <br>
                                             2) <b> ".$topkillers[1]['name']." </b>- <b>".$topkillers[1]['kills']."</b>  <br>
@@ -234,6 +223,18 @@ if(strpos($text, "/forzascontro") === 0)
         } else {
             sendGETMessage("[ER] Guerra non attiva!"); //TODO REMOVE
         }
+    } else {
+        sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
+    }
+}
+
+if(strpos($text, "/uccisioni") === 0)
+{
+    global $username, $municipalities;
+    if($username == "TeamBallo") {
+        $kills = $municipalities->getKillsByName(str_replace("/uccisioni  ","", $text));
+        error_log($kills);
+        sendGETMessage($kills);
     } else {
         sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
     }
