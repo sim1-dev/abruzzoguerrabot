@@ -11,9 +11,9 @@ class DB {
         $db_username = getenv("DB_USER");
         $db_password = getenv("DB_PASSWORD");
         $db_name = getenv("DB_NAME");
-        $db_charset = 'utf8';
+        $db_charset = 'UTF8';
 
-        $dsn = "$db_driver:host=$db_host;dbname=$db_name;charset=$db_charset";
+        $dsn = "$db_driver:host=$db_host;dbname=$db_name;port=$db_port;charset=$db_charset";
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
