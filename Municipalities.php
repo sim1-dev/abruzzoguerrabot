@@ -110,7 +110,7 @@ class Municipalities extends Entity {
 "Villalfonsina", 
 "Villamagna");
         foreach($chieti as $i=>$municipality) {
-            $string.= "(".$municipality.")";
+            $string.= "('".$municipality."')";
             if($key < sizeOf($chieti)) {
                 $string.= ", ";
             }
