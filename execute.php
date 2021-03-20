@@ -101,7 +101,7 @@ if(strpos($text, "/avvia") === 0)
     if($username == "TeamBallo") {
         if($app_running == 0) {
             sendGETMessage($active_setting);
-            $entity->updateSettingRunning(1, 1);
+            $settings->updateSettingRunning(1, 1);
             sendGETMessage("app_running: ".$app_running);
             sendGETMessage("app_id: ".$active_setting["id"]);
             sendGETMessage("[OK] Guerra avviata!");
@@ -118,7 +118,7 @@ if(strpos($text, "/env") === 0)
     global $username, $settings;
     sendGETMessage(getenv("CHANNEL_ID"));
     sendGETMessage(getenv("BOT_TOKEN"));
-    sendGETMessage($entity->getActiveSetting()["app_running"]);
+    sendGETMessage($settings->getActiveSetting()["app_running"]);
 }
 
 
