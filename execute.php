@@ -194,15 +194,15 @@ if(strpos($text, "/forzascontro") === 0)
                     {
                         $l = $alive[rand(0,sizeof($alive)-1)];		
                     }
-                    if ($l["weight"] < 1) {
-                        sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['weight'].")! ".$realSize." comuni rimanenti.");
+                    if ($l["realweight"] < 1) {
+                        sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].")! ".$realSize." comuni rimanenti.");
                     } else {
                         sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b>! ".$realSize." comuni rimanenti.");
                     }
                     //DECREASE LOOSER WEIGHT
-                    $municipalities->updateMunicipalityWeight($l["id"], $l["weight"] - 1);
+                    $municipalities->updateMunicipalityWeight($l["id"], $l["realweight"] - 1);
                     //INCREASE WINNER WEIGHT
-                    $municipalities->updateMunicipalityWeight($w["id"], $w["weight"] + 1);
+                    $municipalities->updateMunicipalityWeight($w["id"], $w["realweight"] + 1);
                     unset($alive);
                 } else {
                     //TODO IMPLEMENT STABLE METHOD GET SINGLE ALIVE MUNICIPALITY
