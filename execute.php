@@ -52,13 +52,26 @@ if(strpos($text, "/start") === 0)
     }
 }
 
-if(strpos($text, "/comunerandom") === 0)
+if(strpos($text, "/comunerandom") === 0) //TEST
 {
     global $username, $municipalities;
     if($username == "TeamBallo") {
         $random = $municipalities->getRandomMunicipality();
-        sendGETMessage($random);
         sendGETMessage($random["name"]);
+    } else {
+        sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
+    }
+}
+
+if(strpos($text, "/morti") === 0) //TEST
+{
+    global $username, $municipalities;
+    if($username == "TeamBallo") {
+        $random = $municipalities->getDeadMunicipalities();
+        foreach($random as $dead) {
+            $message.= $dead["name"]."   ";
+        }
+        sendGETMessage($message);
     } else {
         sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
     }
