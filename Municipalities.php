@@ -112,7 +112,7 @@ class Municipalities extends Entity {
         foreach($chieti as $i=>$municipality) {
             $string.= "(".$municipality.")";
             if($key < sizeOf($chieti)) {
-                $string.= "; ";
+                $string.= ", ";
             }
         }
         $result = $this->entity->prepare("INSERT INTO municipalities (name) VALUES (?)");
