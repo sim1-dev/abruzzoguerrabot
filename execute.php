@@ -179,17 +179,12 @@ if(strpos($text, "/forzascontro") === 0)
                 if(is_array($alive) && $realSize > 1) {
                     //START WEIGHT VALUES
                     for($i = 0; $i < $realSize; $i++) {
-                        sendGETMessageToChannel("current weight: ".$alive[$i]["weight"]);
                         while($alive[$i]["weight"] > 1) {
-                            sendGETMessageToChannel("size of array before: ".sizeOf($alive));
                             $extraelement = $alive[$i];
-                            array_push($alive, $alive[$i]);
-                            sendGETMessageToChannel("old weight: ".$alive[$i]["weight"]);
+                            array_push($alive, $extraelement);
                             $alive[$i]["weight"] = $alive[$i]["weight"] - 1;
-                            sendGETMessageToChannel("new weight: ".$alive[$i]["weight"]);
-                            sendGETMessageToChannel("size of array after: ".sizeOf($alive));
-                            sleep(1);
                         }
+                        sleep(1);
                     }
                     //END WEIGHT VALUES
                     $w = $alive[rand(0,sizeof($alive)-1)];

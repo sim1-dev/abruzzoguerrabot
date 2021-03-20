@@ -26,14 +26,21 @@ if($active_setting["app_running"] == 1) {
     //sendGETMessageToChannel("APP RUNNING"); //TODO REMOVE
     $alive = $municipalities->getAliveMunicipalities();	
     $realSize = is_array($alive) ? sizeOf($alive) : 0;
-        if((is_array($alive) && sizeOf($alive)) > 1)
-        {
+        if(is_array($alive) && $realSize > 1) {
             //START WEIGHT VALUES
             for($i = 0; $i < $realSize; $i++) {
+                sendGETMessageToChannel("current weight: ".$alive[$i]["weight"]);
                 while($alive[$i]["weight"] > 1) {
-                    $alive[$i]["weight"] -= 1;
+                    sendGETMessageToChannel("size of array before: ".sizeOf($alive));
+                    $extraelement = $alive[$i];
                     array_push($alive, $alive[$i]);
+                    sendGETMessageToChannel("old weight: ".$alive[$i]["weight"]);
+                    $alive[$i]["weight"] = $alive[$i]["weight"] - 1;
+                    sendGETMessageToChannel("new weight: ".$alive[$i]["weight"]);
+                    sendGETMessageToChannel("size of array after: ".sizeOf($alive));
+                    sleep(1);
                 }
+                sleep(1);
             }
             //END WEIGHT VALUES
             $w = $alive[rand(0,sizeof($alive)-1)];
@@ -43,9 +50,9 @@ if($active_setting["app_running"] == 1) {
                 $l = $alive[rand(0,sizeof($alive)-1)];		
             }
             if ($l["weight"] < 1) {
-                sendGETMessageToChannel("Il comune di $w (".$w['weight'].") ha colpito il comune di $l (".$l['weight'].")! ".$realSize." comuni rimanenti.\n");
+                sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['weight'].") ha colpito il comune di ".$l['name']." (".$l['weight'].")! ".$realSize." comuni rimanenti.");
             } else {
-                sendGETMessageToChannel("Il comune di $w (".$w['weight'].") ha sconfitto il comune di $l! ".$realSize." comuni rimanenti.\n");
+                sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['weight'].") ha sconfitto il comune di ".$l['name']."! ".$realSize." comuni rimanenti.");
             }
             //DECREASE LOOSER WEIGHT
             $municipalities->updateMunicipalityWeight($l["id"], $l["weight"] - 1);
@@ -56,10 +63,10 @@ if($active_setting["app_running"] == 1) {
             //TODO IMPLEMENT STABLE METHOD GET SINGLE ALIVE MUNICIPALITY
             $champion = $municipalities->getRandomMunicipality();
             initGuerra(0);
-            sendGETMessageToChannel("Il comune di ".$champion['name']." ha vinto la sfida tra comuni!");
+            sendGETMessageToChannel("Il comune di <b>".$champion['name']."</b> ha vinto la sfida tra comuni!");
         }
 } else {
-    sendGETMessageToChannel("APP NOT RUNNING"); //TODO REMOVE
+    sendGETMessage("[ER] Guerra non attiva!"); //TODO REMOVE
 }
 
 function initGuerra($active) {
