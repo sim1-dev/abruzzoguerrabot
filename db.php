@@ -37,19 +37,27 @@ class Entity {
 
     public function getSettings() {
 
-        return $this->entity->query("SELECT * FROM settings")->fetchAll();
+        return $this->entity->prepare("SELECT * FROM settings")
+        ->execute()
+        ->fetchAll();
 
     }
 
     public function getActiveSetting() {
 
-        return $this->entity->query("SELECT 1 FROM settings WHERE active=1")->fetchAll();
+        return $this->entity->prepare("SELECT 1 FROM settings WHERE active=1")
+        ->execute()
+        ->fetch();
 
     }
 
     public function updateSettingField($_id, $_field, $_value) {
 
-        return $this->entity->prepare("UPDATE settings SET $_field =:$_value WHERE id =:$_id")->execute();
+        return $this->entity->prepare("UPDATE settings SET :field =:value WHERE id =:id")
+        ->bindParam(':field', $_field)
+        ->bindParam(':value', $_value)
+        ->bindParam(':id', $_id)
+        ->execute();
 
     }
 
