@@ -28,7 +28,7 @@ class Entity {
         ];
     
         try {
-            $this->entity = new PDO($dsn, $this->db_user, $this->db_password, $this->options);
+            $this->entity = new PDO($dsn, $this->db_user, $this->db_password, $options);
         } catch (\PDOException $e) {
             throw new \PDOException($e->getMessage(), (int)$e->getCode());
         }
