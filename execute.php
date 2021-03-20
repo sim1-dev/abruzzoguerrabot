@@ -226,7 +226,6 @@ if(strpos($text, "/forzascontro") === 0)
                     sleep(1);
                     sendGETMessageToChannel("5) <b> ".$topkillers[4]['name']." </b>- <b>".$topkillers[4]['kills']."</b>");
                     initGuerra(0);
-                    sendGETMessageToChannel("Il comune di <b>".$champion['name']."</b> ha vinto la sfida tra comuni!");
                 }
         } else {
             sendGETMessage("[ER] Guerra non attiva!"); //TODO REMOVE
