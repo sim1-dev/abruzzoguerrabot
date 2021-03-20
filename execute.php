@@ -87,7 +87,7 @@ if(strpos($text, "/broadcast") === 0)
     }
 }
 
-if(strpos($text, "/lancia") === 0)
+if(strpos($text, "/avvia") === 0)
 {
     global $username, $active_setting, $settings, $municipalities;
     $app_running = $active_setting["app_running"];
@@ -197,7 +197,7 @@ if(strpos($text, "/forzascontro") === 0)
                     {
                         $l = $alive[rand(0,sizeof($alive)-1)];		
                     }
-                    if ($l["realweight"] < 1) {
+                    if ($l["realweight"] > 1) {
                         sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].")! ".$realSize." comuni rimanenti.");
                     } else {
                         sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b>! ".($realSize - 1)." comuni rimanenti.");
