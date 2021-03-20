@@ -35,37 +35,13 @@ class Entity {
 
     }
 
-    public function getSettings() {
+  /*  public function updateSettingField($_id, $_field, $_value) {
 
-        return $this->entity->query("SELECT * FROM settings")
-        ->execute()
-        ->fetchAll();
-
-    }
-
-    public function getActiveSetting() {
-
-        return $this->entity->query("SELECT 1 FROM settings WHERE active=1")
-        ->fetch();
-
-    }
-
-    public function updateSettingField($_id, $_field, $_value) {
-
-        $result = $this->entity->prepare("UPDATE settings SET :field = :value WHERE id = :id");
-        $result->bindParam(':field', $_field);
+        $result = $this->entity->prepare("UPDATE settings SET app_running = :value WHERE id = :id");
         $result->bindParam(':value', $_value);
         $result->bindParam(':id', $_id);
         $result->execute();
 
-    }
-
-    public function updateSettingRunning($_id, $_value) {
-        $result = $this->entity->prepare("UPDATE settings SET app_running=? WHERE id=?");
-        $result->bindParam(1, $_value);
-        $result->bindParam(2, $_id);
-        $result->execute();
-
-    }
+    }*/
 
 }

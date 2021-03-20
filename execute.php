@@ -1,6 +1,7 @@
 <?php 
 
 require_once("db.php");
+require_once("Settings.php");
 
 //APP VARS
 
@@ -11,13 +12,13 @@ $db_user = getenv("DB_USER");
 $db_password = getenv("DB_PASSWORD");
 $db_name = getenv("DB_NAME");
 
-global $username, $entity, $app_settings;
+global $username, $settings, $active_setting;
 
-$entity = new Entity($db_driver, $db_host, $db_port, $db_user, $db_password, $db_name);
+$settings = new Settings($db_driver, $db_host, $db_port, $db_user, $db_password, $db_name);
 
-$app_settings = $entity->getActiveSetting();
+$active_setting = $settings->getActiveSetting()[0];
 
-print_r($app_settings);
+print_r($active_setting);
 
 $response = '';
 $channel_id = getenv("CHANNEL_ID");
@@ -76,7 +77,7 @@ if(strpos($text, "/start") === 0)
 {
     global $username;
     if($username == "TeamBallo") {
-        sendGETMessage($app_settings);
+        sendGETMessage($active_setting);
     } else {
         sendGETMessage("test");
     }
@@ -95,14 +96,13 @@ if(strpos($text, "/broadcast") === 0)
 
 if(strpos($text, "/avvia") === 0)
 {
-    global $username, $app_settings, $entity;
-    $app_running = $app_settings["app_running"];
+    global $username, $active_setting, $settings;
+    $app_running = $active_setting["app_running"];
     if($username == "TeamBallo") {
         if($app_running == 0) {
-            sendGETMessage($app_settings);
+            sendGETMessage($active_setting);
             //shell_exec("heroku config:set APP_RUNNING=1");
-            $entity->updateSettingField(1, 'app_running', 1);
-            //$entity->updateSettingRunning(1, 1);
+            $entity->updateSettingRunning(1, 1);
             sendGETMessage("app_running: ".$app_running);
             sendGETMessage("[OK] Guerra avviata!");
         } else {
@@ -115,7 +115,7 @@ if(strpos($text, "/avvia") === 0)
 
 if(strpos($text, "/env") === 0)
 {
-    global $username, $entity;
+    global $username, $settings;
     sendGETMessage(getenv("CHANNEL_ID"));
     sendGETMessage(getenv("BOT_TOKEN"));
     sendGETMessage($entity->getActiveSetting()[0]["app_running"]);
