@@ -45,8 +45,7 @@ class Entity {
 
     public function getActiveSetting() {
 
-        return $this->entity->prepare("SELECT 1 FROM settings WHERE active=1")
-        ->execute()
+        return $this->entity->query("SELECT 1 FROM settings WHERE active=1")
         ->fetch();
 
     }
