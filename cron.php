@@ -20,14 +20,14 @@ if($active_setting["app_running"] == 1) {
     $realSize = is_array($alive) ? sizeOf($alive) : '';
         if((is_array($alive) && sizeOf($alive)) > 1)
         {
-            //START weight values
+            //START WEIGHT VALUES
             for($i = 0; $i < $realSize; $i++) {
                 while($alive[$i]["weight"] > 1) {
                     $alive[$i]["weight"] -= 1;
                     array_push($alive, $alive[$i]);
                 }
             }
-            //END weight values
+            //END WEIGHT VALUES
             $w = $alive[rand(0,sizeof($alive)-1)];
             $l = $alive[rand(0,sizeof($alive)-1)];
             while ($w == $l)
@@ -47,10 +47,17 @@ if($active_setting["app_running"] == 1) {
         } else {
             //TODO IMPLEMENT STABLE METHOD GET SINGLE ALIVE MUNICIPALITY
             $champion = $municipalites->getRandomMunicipality();
+            initGuerra(0);
             sendGETMessageToChannel("Il comune di ".$champion['name']." ha vinto la sfida tra comuni!");
         }
 } else {
     sendGETMessageToChannel("APP NOT RUNNING"); //TODO REMOVE
+}
+
+function initGuerra($active) {
+    global $municipalities, $settings, $active_setting;
+    $municipalities->resetGuerra();
+    $settings->updateSettingRunning($active_setting["id"], $active);
 }
 
 function sendGETMessageToChannel($message) {
