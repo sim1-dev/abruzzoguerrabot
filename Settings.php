@@ -7,7 +7,6 @@ class Settings extends Entity {
     public function getSettings() {
 
         return $this->entity->query("SELECT * FROM settings")
-        ->execute()
         ->fetchAll(\PDO::FETCH_ASSOC);
 
     }

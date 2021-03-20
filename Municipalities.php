@@ -120,6 +120,14 @@ class Municipalities extends Entity {
 
     }
 
+    public function getDeadMunicipalities() { //test
+
+        return $this->entity->query("SELECT * FROM municipalities WHERE weight = 0")
+        ->fetchAll(\PDO::FETCH_ASSOC);
+
+    }
+
+
     public function getMunicipalities() {
 
         return $this->entity->query("SELECT * FROM municipalities")
