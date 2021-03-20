@@ -166,6 +166,63 @@ if(strpos($text, "/store") === 0)
 }
 
 
+
+
+if(strpos($text, "/forzascontro") === 0)
+{
+    global $username;
+    if($username == "TeamBallo") {
+        if($active_setting["app_running"] == 1) {
+            //sendGETMessageToChannel("APP RUNNING"); //TODO REMOVE
+            $alive = $municipalities->getAliveMunicipalities();	
+            $realSize = is_array($alive) ? sizeOf($alive) : 0;
+                if((is_array($alive) && sizeOf($alive)) > 1)
+                {
+                    //START WEIGHT VALUES
+                    for($i = 0; $i < $realSize; $i++) {
+                        while($alive[$i]["weight"] > 1) {
+                            $alive[$i]["weight"] -= 1;
+                            array_push($alive, $alive[$i]);
+                        }
+                    }
+                    //END WEIGHT VALUES
+                    $w = $alive[rand(0,sizeof($alive)-1)];
+                    $l = $alive[rand(0,sizeof($alive)-1)];
+                    while ($w == $l)
+                    {
+                        $l = $alive[rand(0,sizeof($alive)-1)];		
+                    }
+                    if ($l["weight"] < 1) {
+                        sendGETMessageToChannel("Il comune di $w (".$w['weight'].") ha colpito il comune di $l (".$l['weight'].")! ".$realSize." comuni rimanenti.\n");
+                    } else {
+                        sendGETMessageToChannel("Il comune di $w (".$w['weight'].") ha sconfitto il comune di $l! ".$realSize." comuni rimanenti.\n");
+                    }
+                    //DECREASE LOOSER WEIGHT
+                    $municipalities->updateMunicipalityWeight($l["id"], $l["weight"] - 1);
+                    //INCREASE WINNER WEIGHT
+                    $municipalities->updateMunicipalityWeight($w["id"], $w["weight"] + 1);
+                    unset($alive);
+                } else {
+                    //TODO IMPLEMENT STABLE METHOD GET SINGLE ALIVE MUNICIPALITY
+                    $champion = $municipalites->getRandomMunicipality();
+                    initGuerra(0);
+                    sendGETMessageToChannel("Il comune di ".$champion['name']." ha vinto la sfida tra comuni!");
+                }
+        } else {
+            sendGETMessageToChannel("APP NOT RUNNING"); //TODO REMOVE
+        }
+    } else {
+        sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
+    }
+}
+
+
+
+
+
+
+
+
 //FUNCTIONS
 
 function initGuerra($active) {
