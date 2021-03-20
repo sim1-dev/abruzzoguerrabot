@@ -176,8 +176,7 @@ if(strpos($text, "/forzascontro") === 0)
             //sendGETMessageToChannel("APP RUNNING"); //TODO REMOVE
             $alive = $municipalities->getAliveMunicipalities();	
             $realSize = is_array($alive) ? sizeOf($alive) : 0;
-                if((is_array($alive) && sizeOf($alive)) > 1)
-                {
+                if((is_array($alive) && sizeOf($alive)) > 1) {
                     //START WEIGHT VALUES
                     for($i = 0; $i < $realSize; $i++) {
                         while($alive[$i]["weight"] > 1) {
@@ -204,6 +203,7 @@ if(strpos($text, "/forzascontro") === 0)
                     unset($alive);
                 } else {
                     //TODO IMPLEMENT STABLE METHOD GET SINGLE ALIVE MUNICIPALITY
+                    sendGETMessageToChannel($alive);
                     $champion = $municipalities->getRandomMunicipality();
                     initGuerra(0);
                     sendGETMessageToChannel("Il comune di ".$champion['name']." ha vinto la sfida tra comuni!");
