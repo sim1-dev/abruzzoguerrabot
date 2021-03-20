@@ -187,7 +187,9 @@ if(strpos($text, "/forzascontro") === 0)
                             $alive[$i]["weight"] = $alive[$i]["weight"] - 1;
                         }
                     }
-                    error_log(implode(",", $alive));
+                    foreach($alive as $comune) {
+                        error_log(implode(",", $comune));
+                    }
                     //END WEIGHT VALUES
                     $w = $alive[rand(0,sizeof($alive)-1)];
                     $l = $alive[rand(0,sizeof($alive)-1)];
