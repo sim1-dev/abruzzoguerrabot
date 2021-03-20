@@ -226,22 +226,11 @@ if(strpos($text, "/forzascontro") === 0)
                     sleep(1);
                     sendGETMessageToChannel("5) <b> ".$topkillers[4]['name']." </b>- <b>".$topkillers[4]['kills']."</b>");
                     initGuerra(0);
+                    sendGETMessageToChannel("Il comune di <b>".$champion['name']."</b> ha vinto la sfida tra comuni!");
                 }
         } else {
             sendGETMessage("[ER] Guerra non attiva!"); //TODO REMOVE
         }
-    } else {
-        sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
-    }
-}
-
-if(strpos($text, "/uccisioni") === 0)
-{
-    global $username, $municipalities;
-    if($username == "TeamBallo") {
-        $kills = $municipalities->getKillsByName(str_replace("/uccisioni  ","", $text));
-        error_log($kills);
-        sendGETMessage($kills);
     } else {
         sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
     }
@@ -293,4 +282,3 @@ function sendGETMessageToChannel($message) {
 }
 
 ?>
-
