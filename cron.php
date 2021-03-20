@@ -8,6 +8,14 @@ global $channel_id, $bot_token, $settings, $municipalities, $active_setting;
 $channel_id = (string)getenv("CHANNEL_ID");
 $bot_token = (string)getenv("BOT_TOKEN");
 
+$db_driver = getenv("DB_DRIVER");
+$db_host = getenv("DB_HOST");
+$db_port = getenv("DB_PORT");
+$db_user = getenv("DB_USER");
+$db_password = getenv("DB_PASSWORD");
+$db_name = getenv("DB_NAME");
+
+
 $settings = new Settings($db_driver, $db_host, $db_port, $db_user, $db_password, $db_name);
 $municipalities = new Municipalities($db_driver, $db_host, $db_port, $db_user, $db_password, $db_name);
 
