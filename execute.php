@@ -1,12 +1,17 @@
 <?php 
 
-//APP VARS
+require_once("db.php");
 
-global $username, $app_running;
-$app_running = getenv('APP_RUNNING');
+//APP VARS
+$entity = new DB;
+
+global $username, $entity, $app_settings;
+
+$app_settings = $entity->getActiveSetting();
+
 $response = '';
-$channel_id = "-1001136654503";
-$bot_token = "1717660927:AAH-mr5L77Ae2WbHdWDySmabO2hrunsAyLc";
+$channel_id = getenv("CHANNEL_ID");
+$bot_token = getenv("BOT_TOKEN");
 
 $content = file_get_contents("php://input");
 $update = json_decode($content, true);
@@ -61,7 +66,7 @@ if(strpos($text, "/start") === 0)
 {
     global $username;
     if($username == "TeamBallo") {
-        sendGETMessageToChannel("admin test");
+        sendGETMessage($app_settings);
     } else {
         sendGETMessage("test");
     }
@@ -69,13 +74,12 @@ if(strpos($text, "/start") === 0)
 
 if(strpos($text, "/avvia") === 0)
 {
-    global $username, $app_running;
+    global $username, $app_settings;
+    $app_running = $app_settings["app_running"];
     if($username == "TeamBallo") {
-        $app_running = getenv('APP_RUNNING');
         if($app_running == 0) {
             //shell_exec("heroku config:set APP_RUNNING=1");
-            sendGETMessage(putenv("APP_RUNNING=1"));
-            $app_running = getenv('APP_RUNNING');
+            $entity->updateSettingField($app_settings["id"], "app_running", 1);
             sendGETMessage("app_running: ".$app_running);
             sendGETMessage("[OK] Guerra avviata!");
         } else {
@@ -84,12 +88,6 @@ if(strpos($text, "/avvia") === 0)
     } else {
         sendGETMessage("[ER] Non hai accesso a questo comando.");
     }
-}
-
-if(strpos($text, "/env") === 0)
-{
-    global $username, $app_running;
-    sendGETMessageToChannel("app_running: ".$app_running);
 }
 
 
