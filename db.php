@@ -35,13 +35,13 @@ class Entity {
 
     }
 
-    protected function getSettings() {
+    public function getSettings() {
 
         return $this->entity->query("SELECT * FROM settings")->fetchAll();
 
     }
 
-    protected function getActiveSetting() {
+    public function getActiveSetting() {
 
         return $this->entity->query("SELECT 1 FROM settings WHERE active=1")->fetchAll();
 
