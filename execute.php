@@ -177,7 +177,7 @@ if(strpos($text, "/forzascontro") === 0)
             $alive = $municipalities->getAliveMunicipalities();	
             $realSize = is_array($alive) ? sizeOf($alive) : 0;
                 if(($realSize - 1) > 1) {
-                    //START WEIGHT VALUES
+                    //START WEIGHT VALUES HANDLING
                     for($i = 0; $i < $realSize; $i++) {
                         $alive[$i]["realweight"] = $alive[$i]["weight"];
                         while($alive[$i]["weight"] > 1) {
@@ -187,10 +187,7 @@ if(strpos($text, "/forzascontro") === 0)
                             $alive[$i]["weight"] = $alive[$i]["weight"] - 1;
                         }
                     }
-                    foreach($alive as $comune) {
-                        error_log(implode(",", $comune));
-                    }
-                    //END WEIGHT VALUES
+                    //END WEIGHT VALUES HANDLING
                     $w = $alive[rand(0,sizeof($alive)-1)];
                     $l = $alive[rand(0,sizeof($alive)-1)];
                     while ($w['name'] == $l['name'])
@@ -198,9 +195,9 @@ if(strpos($text, "/forzascontro") === 0)
                         $l = $alive[rand(0,sizeof($alive)-1)];		
                     }
                     if ($l["realweight"] > 1) {
-                        sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].")! ".$realSize." comuni rimanenti.");
+                        sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].") !");
                     } else {
-                        sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b>! ".($realSize - 1)." comuni rimanenti.");
+                        sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> ! <br><b>".($realSize - 1)."</b> comuni rimanenti.");
                     }
                     //DECREASE LOOSER WEIGHT
                     $municipalities->updateMunicipalityWeight($l["id"], $l["realweight"] - 1);
