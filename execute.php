@@ -176,14 +176,15 @@ if(strpos($text, "/forzascontro") === 0)
             //sendGETMessageToChannel("APP RUNNING"); //TODO REMOVE
             $alive = $municipalities->getAliveMunicipalities();	
             $realSize = is_array($alive) ? sizeOf($alive) : 0;
-            //sendGETMessageToChannel(implode(",", $alive[0]));
-            //sendGETMessageToChannel($realSize);
                 if(is_array($alive) && $realSize > 1) {
                     //START WEIGHT VALUES
                     for($i = 0; $i < $realSize; $i++) {
+                        sendGETMessageToChannel("current weight: ".$alive[$i]["weight"]);
                         while($alive[$i]["weight"] > 1) {
                             $alive[$i]["weight"] -= 1;
+                            sendGETMessageToChannel("new weight: ".$alive[$i]["weight"]);
                             array_push($alive, $alive[$i]);
+                            sendGETMessageToChannel("size of array: ".sizeOf($alive));
                         }
                     }
                     //END WEIGHT VALUES
@@ -194,24 +195,23 @@ if(strpos($text, "/forzascontro") === 0)
                         $l = $alive[rand(0,sizeof($alive)-1)];		
                     }
                     if ($l["weight"] < 1) {
-                        sendGETMessageToChannel("Il comune di ".$w['name']." (".$w['weight'].") ha colpito il comune di ".$l['name']." (".$l['weight'].")! ".$realSize." comuni rimanenti.");
+                        sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['weight'].") ha colpito il comune di ".$l['name']." (".$l['weight'].")! ".$realSize." comuni rimanenti.");
                     } else {
-                        sendGETMessageToChannel("Il comune di ".$w['name']." (".$w['weight'].") ha sconfitto il comune di ".$l['name']."! ".$realSize." comuni rimanenti.");
+                        sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['weight'].") ha sconfitto il comune di ".$l['name']."! ".$realSize." comuni rimanenti.");
                     }
                     //DECREASE LOOSER WEIGHT
                     $municipalities->updateMunicipalityWeight($l["id"], $l["weight"] - 1);
                     //INCREASE WINNER WEIGHT
                     $municipalities->updateMunicipalityWeight($w["id"], $w["weight"] + 1);
-                    //unset($alive);
+                    unset($alive);
                 } else {
                     //TODO IMPLEMENT STABLE METHOD GET SINGLE ALIVE MUNICIPALITY
-                    sendGETMessageToChannel($alive);
                     $champion = $municipalities->getRandomMunicipality();
                     initGuerra(0);
-                    sendGETMessageToChannel("Il comune di ".$champion['name']." ha vinto la sfida tra comuni!");
+                    sendGETMessageToChannel("Il comune di <b>".$champion['name']."</b> ha vinto la sfida tra comuni!");
                 }
         } else {
-            sendGETMessageToChannel("APP NOT RUNNING"); //TODO REMOVE
+            sendGETMessage("[ER] Guerra non attiva!"); //TODO REMOVE
         }
     } else {
         sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
@@ -250,7 +250,7 @@ function sendGETMessage($message) {
 
 function sendGETMessageToChannel($message) {
 	global $bot_token, $channel_id;
-    $url = "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$channel_id&text=$message";
+    $url = "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$channel_id&text=$message&parse_mode=html";
     $options = array(
         'http'=>array(
             'method'=>"POST",
