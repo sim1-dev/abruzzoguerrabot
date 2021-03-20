@@ -52,7 +52,17 @@ class Entity {
 
     public function updateSettingField($_id, $_field, $_value) {
 
-        return $this->entity->prepare("UPDATE settings SET :field =:value WHERE id =:id")
+        return $this->entity->prepare("UPDATE settings SET :field = :value WHERE id = :id")
+        ->bindParam(':field', $_field)
+        ->bindParam(':value', $_value)
+        ->bindParam(':id', $_id)
+        ->execute();
+
+    }
+
+    public function updateSettingRunning($_id, $_value) {
+
+        return $this->entity->prepare("UPDATE settings SET app_running = :value WHERE id = :id")
         ->bindParam(':field', $_field)
         ->bindParam(':value', $_value)
         ->bindParam(':id', $_id)
