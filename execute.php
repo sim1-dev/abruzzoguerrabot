@@ -67,7 +67,7 @@ if(strpos($text, "/morti") === 0) //TEST
 {
     global $username, $municipalities;
     if($username == "TeamBallo") {
-        $random = $municipalities->getDeadMunicipalities();
+        $random = array_size($municipalities->getDeadMunicipalities());
         foreach($random as $dead) {
             $message.= $dead["name"]."   ";
         }
