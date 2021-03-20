@@ -6,14 +6,14 @@ class DB {
 
     public function __construct() {
 
-        $db_driver = env("DB_DRIVER");
-        $db_host = env("DB_HOST");
-        $db_username = env("DB_USER");
-        $db_password = env("DB_PASSWORD");
-        $db_name = env("DB_NAME");
-        $db_charset = 'UTF8';
+        $this->db_driver = getenv("DB_DRIVER");
+        $this->db_host = getenv("DB_HOST");
+        $this->db_username = getenv("DB_USER");
+        $this->db_password = getenv("DB_PASSWORD");
+        $this->db_name = getenv("DB_NAME");
+        $this->db_charset = 'UTF8';
 
-        $dsn = "$db_driver:host=$db_host;dbname=$db_name;port=$db_port;charset=$db_charset";
+        $dsn = "$this->db_driver:host=$this->db_host;dbname=$this->db_name;port=$this->db_port;charset=$this->db_charset";
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
@@ -21,7 +21,7 @@ class DB {
         ];
     
         try {
-            $this->entity = new PDO($dsn, $db_user, $db_password, $options);
+            $this->entity = new PDO($dsn, $this->db_user, $this->db_password, $this->options);
         } catch (\PDOException $e) {
             throw new \PDOException($e->getMessage(), (int)$e->getCode());
         }
