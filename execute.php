@@ -18,7 +18,7 @@ $settings = new Settings($db_driver, $db_host, $db_port, $db_user, $db_password,
 
 $active_setting = $settings->getActiveSetting();
 echo 'ACTIVE SETTINGS ARRAY START ';
-print_r($active_setting);
+error_log($active_setting);
 echo 'ACTIVE SETTINGS ARRAY END ';
 
 $response = '';
