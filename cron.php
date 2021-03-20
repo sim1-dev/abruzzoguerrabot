@@ -25,7 +25,7 @@ $active_setting = $settings->getActiveSetting();
 if($active_setting["app_running"] == 1) {
     //sendGETMessageToChannel("APP RUNNING"); //TODO REMOVE
     $alive = $municipalities->getAliveMunicipalities();	
-    $realSize = is_array($alive) ? sizeOf($alive) : '';
+    $realSize = is_array($alive) ? sizeOf($alive) : 0;
         if((is_array($alive) && sizeOf($alive)) > 1)
         {
             //START WEIGHT VALUES
