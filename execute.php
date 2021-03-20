@@ -154,6 +154,12 @@ if(strpos($text, "/store") === 0)
 
 //FUNCTIONS
 
+function initGuerra($active) {
+    global $municipalities, $settings, $active_setting;
+    $municipalities->resetGuerra();
+    $settings->updateSettingRunning($active_setting["id"], $active);
+}
+
 function sendGETMessage($message) {
 	global $bot_token, $chatId;
     $url = "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$chatId&text=$message";
@@ -182,12 +188,6 @@ function sendGETMessageToChannel($message) {
 	);
 	$context = stream_context_create($options);
 	file_get_contents($url, false, $context);
-}
-
-function initGuerra($active) {
-    global $municipalities, $settings, $active_setting;
-    $municipalities->resetGuerra();
-    $settings->updateSettingRunning($active_setting["id"], $active);
 }
 
 ?>
