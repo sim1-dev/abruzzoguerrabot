@@ -91,7 +91,7 @@ class Municipalities extends Entity {
 "San Martino sulla Marrucina", 
 "San Salvo", 
 "San Vito Chietino", 
-"Sant\'Eusanio del Sangro", 
+"Santo Eusanio del Sangro", 
 "Santa Maria Imbaro", 
 "Scerni", 
 "Schiavi di Abruzzo", 
