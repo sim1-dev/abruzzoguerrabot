@@ -21,6 +21,7 @@ class Entity {
         $db_charset = 'UTF8';
 
         $dsn = "$this->db_driver:host=$this->db_host;dbname=$this->db_name;port=$this->db_port;charset=$db_charset";
+        echo $dsn;
         $options = [
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
