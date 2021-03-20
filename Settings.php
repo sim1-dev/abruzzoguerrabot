@@ -14,14 +14,13 @@ class Settings extends Entity {
 
     public function getActiveSetting() {
 
-        return $this->entity->query("SELECT * FROM settings WHERE active=1 LIMIT 1")
+        return $this->entity->query("SELECT * FROM settings WHERE active = 1 LIMIT 1")
         ->fetch();
-       // ->fetchAll(\PDO::FETCH_ASSOC)[0];
 
     }
 
     public function updateSettingRunning($_id, $_value) {
-        $result = $this->entity->prepare("UPDATE settings SET app_running=? WHERE id=?");
+        $result = $this->entity->prepare("UPDATE settings SET app_running = ? WHERE id = ?");
         $result->bindParam(1, $_value);
         $result->bindParam(2, $_id);
         return $result->execute();
