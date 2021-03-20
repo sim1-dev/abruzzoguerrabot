@@ -6,11 +6,11 @@ class DB {
 
     public function __construct() {
 
-        $db_driver = getenv("DB_DRIVER");
-        $db_host = getenv("DB_HOST");
-        $db_username = getenv("DB_USER");
-        $db_password = getenv("DB_PASSWORD");
-        $db_name = getenv("DB_NAME");
+        $db_driver = env("DB_DRIVER");
+        $db_host = env("DB_HOST");
+        $db_username = env("DB_USER");
+        $db_password = env("DB_PASSWORD");
+        $db_name = env("DB_NAME");
         $db_charset = 'UTF8';
 
         $dsn = "$db_driver:host=$db_host;dbname=$db_name;port=$db_port;charset=$db_charset";
