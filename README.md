@@ -1,4 +1,4 @@
-# AbruzzoGuerraBot - WIP (Beta)
+# AbruzzoGuerraBot - WIP (Beta 1)
 Guerra testuale tra comuni abruzzesi - canale Telegram: @AbruzzoGuerra
 
 Autore: @TeamBallo
