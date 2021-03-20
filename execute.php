@@ -176,7 +176,7 @@ if(strpos($text, "/forzascontro") === 0)
             //sendGETMessageToChannel("APP RUNNING"); //TODO REMOVE
             $alive = $municipalities->getAliveMunicipalities();	
             $realSize = is_array($alive) ? sizeOf($alive) : 0;
-                if(($realSize - 1) > 1) {
+                if(($realSize) > 1) {
                     //START WEIGHT VALUES HANDLING
                     for($i = 0; $i < $realSize; $i++) {
                         $alive[$i]["realweight"] = $alive[$i]["weight"];
