@@ -43,13 +43,13 @@ class Entity {
 
     public function getActiveSetting() {
 
-        return $this->entity->query("SELECT 1 FROM settings WHERE active=1")->fetchAll();
+        return $this->entity->query("SELECT 1 FROM settings WHERE active='1'")->fetchAll();
 
     }
 
     public function updateSettingField($_id, $_field, $_value) {
 
-        return $this->entity->prepare("UPDATE settings SET $_field =:$_value WHERE id =:$_id")->execute();
+        return $this->entity->prepare("UPDATE settings SET $_field =:'$_value' WHERE id ='$_id'")->execute();
 
     }
 
