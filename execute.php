@@ -82,6 +82,17 @@ if(strpos($text, "/start") === 0)
     }
 }
 
+if(strpos($text, "/broadcast") === 0)
+{
+    global $username;
+    if($username == "TeamBallo") {
+        sendGETMessage($text);
+    } else {
+        sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
+    }
+}
+
+
 if(strpos($text, "/avvia") === 0)
 {
     global $username, $app_settings, $entity;

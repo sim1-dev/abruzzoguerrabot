@@ -63,7 +63,6 @@ class Entity {
     public function updateSettingRunning($_id, $_value) {
 
         return $this->entity->prepare("UPDATE settings SET app_running = :value WHERE id = :id")
-        ->bindParam(':field', $_field)
         ->bindParam(':value', $_value)
         ->bindParam(':id', $_id)
         ->execute();
