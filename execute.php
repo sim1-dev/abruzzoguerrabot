@@ -87,7 +87,7 @@ if(strpos($text, "/broadcast") === 0)
 {
     global $username;
     if($username == "TeamBallo") {
-        sendGETMessageToChannel($text);
+        sendGETMessageToChannel(str_replace("/broadcast ","",$text));
     } else {
         sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
     }
@@ -100,7 +100,8 @@ if(strpos($text, "/avvia") === 0)
     $app_running = $active_setting["app_running"];
     if($username == "TeamBallo") {
         if($app_running == 0) {
-            sendGETMessage($active_setting);
+            sendGETMessage($active_setting[0]);
+            print_r($active_setting);
             $settings->updateSettingRunning(1, 1);
             sendGETMessage("app_running: ".$app_running);
             sendGETMessage("app_id: ".$active_setting["id"]);
