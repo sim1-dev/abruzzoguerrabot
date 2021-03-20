@@ -158,8 +158,7 @@ class Municipalities extends Entity {
     }
 
     public function resetGuerra() {
-        $result = $this->entity->prepare("UPDATE municipalities SET weight = 1 WHERE 1");
-       // $result->bindParam(1, 1);
+        $result = $this->entity->query("UPDATE municipalities SET weight = 1 WHERE true");
         return $result->execute();
     }
 
