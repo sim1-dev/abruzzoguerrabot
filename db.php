@@ -47,7 +47,7 @@ class Entity {
 
     }
 
-    protected function updateSettingField($_id, $_field, $_value) {
+    public function updateSettingField($_id, $_field, $_value) {
 
         return $this->entity->prepare("UPDATE settings SET $_field =:$_value WHERE id =:$_id")->execute();
 
