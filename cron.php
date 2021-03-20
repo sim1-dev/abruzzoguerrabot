@@ -48,7 +48,6 @@ if($active_setting["app_running"] == 1) {
                 sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].") !");
             } else {
                 sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> ! <br><b>".($realSize - 1)."</b> comuni rimanenti.");
-                $municipalities->addKill($w["id"]);
             }
             //DECREASE LOOSER WEIGHT
             $municipalities->updateMunicipalityWeight($l["id"], $l["realweight"] - 1);
@@ -58,16 +57,8 @@ if($active_setting["app_running"] == 1) {
         } else {
             //TODO IMPLEMENT STABLE METHOD GET SINGLE ALIVE MUNICIPALITY
             $champion = $municipalities->getRandomMunicipality();
-            sendGETMessageToChannel("👑 Il comune di <b>".$champion['name']."</b> ha vinto la sfida tra comuni! 👑");
-            $topkillers = $municipalities->getKillsHighscore();
-            sendGETMessageToChannel("Comuni con più uccisioni: <br> 
-                                    1) <b> ".$topkillers[0]['name']." </b> - <b>".$topkillers[0]['kills']."</b> 👑 <br>
-                                    2) <b> ".$topkillers[1]['name']." </b>- <b>".$topkillers[1]['kills']."</b>  <br>
-                                    3) <b> ".$topkillers[2]['name']." </b>- <b>".$topkillers[2]['kills']."</b> <br>
-                                    4) <b> ".$topkillers[3]['name']." </b>- <b>".$topkillers[3]['kills']."</b>  <br>
-                                    5) <b> ".$topkillers[4]['name']." </b>- <b>".$topkillers[4]['kills']."</b>  <br>
-            ");
             initGuerra(0);
+            sendGETMessageToChannel("Il comune di <b>".$champion['name']."</b> ha vinto la sfida tra comuni!");
         }
 } else {
    // sendGETMessage("[ER] Guerra non attiva!"); //TODO REMOVE
