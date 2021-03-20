@@ -17,6 +17,8 @@ $entity = new Entity($db_driver, $db_host, $db_port, $db_user, $db_password, $db
 
 $app_settings = $entity->getActiveSetting();
 
+print_r($app_settings);
+
 $response = '';
 $channel_id = getenv("CHANNEL_ID");
 $bot_token = getenv("BOT_TOKEN");
@@ -101,9 +103,8 @@ if(strpos($text, "/avvia") === 0)
 if(strpos($text, "/env") === 0)
 {
     global $username, $entity;
-    sendGETMessage(getenv("DB_DRIVER"));
-    sendGETMessage($entity);
-    sendGETMessage("app_running: ".$app_running);
+  //  sendGETMessage(getenv("DB_DRIVER"));
+    sendGETMessage($entity->getActiveSetting["app_running"]);
 }
 
 
