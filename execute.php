@@ -4,9 +4,16 @@ require_once("db.php");
 
 //APP VARS
 
+$db_driver = getenv("DB_DRIVER");
+$db_host = getenv("DB_HOST");
+$db_port = getenv("DB_PORT");
+$db_user = getenv("DB_USER");
+$db_password = getenv("DB_PASSWORD");
+$db_name = getenv("DB_NAME");
+
 global $username, $entity, $app_settings;
 
-$entity = new DB;
+$entity = new Entity($db_driver, $db_host, $db_port, $db_user, $db_password, $db_name);
 
 $app_settings = $entity->getActiveSetting();
 
