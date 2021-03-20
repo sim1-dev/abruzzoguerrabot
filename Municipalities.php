@@ -109,12 +109,15 @@ class Municipalities extends Entity {
 "Villa Santa Maria", 
 "Villalfonsina", 
 "Villamagna");
-        foreach($chieti as $municipality) {
-            $result = $this->entity->prepare("INSERT INTO municipalities (name) VALUES (?)");
-            $result->bindParam(1, $municipality);
-            $result->execute();
+        foreach($chieti as $i=>$municipality) {
+            $string.= "(".$municipality.")";
+            if($key < sizeOf($chieti)) {
+                $string.= "; ";
+            }
         }
-        return;
+        $result = $this->entity->prepare("INSERT INTO municipalities (name) VALUES (?)");
+        $result->bindParam(1, $string);
+        return $result->execute();
 
     }
 
