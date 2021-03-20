@@ -47,7 +47,7 @@ if($active_setting["app_running"] == 1) {
             if ($l["realweight"] > 1) {
                 sendGETMessageToChannel("Il comune di <b>".$w['name']."</b>(".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b>(".$l['realweight'].") !");
             } else {
-                sendGETMessageToChannel("Il comune di <b>".$w['name']."</b>(".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> !");
+                sendGETMessageToChannel("Il comune di <b>".$w['name']."</b>(".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']." !");
                 sendGETMessageToChannel("<b>".($realSize - 1)."</b> comuni rimanenti.");
                 $municipalities->addKill($w["id"]);
             }
