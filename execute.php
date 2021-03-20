@@ -74,7 +74,7 @@ if(strpos($text, "/start") === 0)
 
 if(strpos($text, "/avvia") === 0)
 {
-    global $username, $app_settings;
+    global $username, $app_settings, $entity;
     $app_running = $app_settings["app_running"];
     if($username == "TeamBallo") {
         if($app_running == 0) {
@@ -88,6 +88,14 @@ if(strpos($text, "/avvia") === 0)
     } else {
         sendGETMessage("[ER] Non hai accesso a questo comando.");
     }
+}
+
+if(strpos($text, "/env") === 0)
+{
+    global $username, $entity;
+    sendGETMessage(env("DB_DRIVER"));
+    sendGETMessage($entity);
+    sendGETMessage("app_running: ".$app_running);
 }
 
 
