@@ -31,16 +31,16 @@ if($active_setting["app_running"] == 1) {
             for($i = 0; $i < $realSize; $i++) {
                 $alive[$i]["realweight"] = $alive[$i]["weight"];
                 while($alive[$i]["weight"] > 1) {
-                    $extraelement = $alive[$i];
-                    array_push($alive, $extraelement);
+                    $extraelement[$i] = $alive[$i];
+                    $extraelement[$i]["weight"] = $extraelement[$i]["weight"] - 1;
+                    array_push($alive, $extraelement[$i]);
                     $alive[$i]["weight"] = $alive[$i]["weight"] - 1;
                 }
-                sleep(1);
             }
             //END WEIGHT VALUES
             $w = $alive[rand(0,sizeof($alive)-1)];
             $l = $alive[rand(0,sizeof($alive)-1)];
-            while ($w == $l)
+            while ($w['name'] == $l['name'])
             {
                 $l = $alive[rand(0,sizeof($alive)-1)];		
             }
