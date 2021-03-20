@@ -59,7 +59,6 @@ if($active_setting["app_running"] == 1) {
             //TODO IMPLEMENT STABLE METHOD GET SINGLE ALIVE MUNICIPALITY
             $champion = $municipalities->getRandomMunicipality();
             sendGETMessageToChannel("👑 Il comune di <b>".$champion['name']."</b> ha vinto la sfida tra comuni! 👑");
-            sleep(5);
             $topkillers = $municipalities->getKillsHighscore();
             sendGETMessageToChannel("Comuni con più uccisioni: <br> 
                                     1) <b> ".$topkillers[0]['name']." </b> - <b>".$topkillers[0]['kills']."</b> 👑 <br>
