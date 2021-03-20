@@ -2,12 +2,12 @@
 
 class Entity {
 
-    protected $db_driver;
-    protected $db_host;
-    protected $db_port;
-    protected $db_username;
-    protected $db_password;
-    protected $db_name;
+    private $db_driver;
+    private $db_host;
+    private $db_port;
+    private $db_username;
+    private $db_password;
+    private $db_name;
     protected $entity;
 
     public function __construct($_driver, $_host, $_port, $_user, $_password, $_name) {
@@ -37,7 +37,7 @@ class Entity {
 
     public function getSettings() {
 
-        return $this->entity->prepare("SELECT * FROM settings")
+        return $this->entity->query("SELECT * FROM settings")
         ->execute()
         ->fetchAll();
 
@@ -54,8 +54,8 @@ class Entity {
 
         return $this->entity->prepare("UPDATE settings SET :field = :value WHERE id = :id")
         ->bindParam(':field', $_field)
-        ->bindParam(':value', $_value)
-        ->bindParam(':id', $_id)
+        ->bindValue(':value', $_value)
+        ->bindValue(':id', $_id)
         ->execute();
 
     }
@@ -63,8 +63,8 @@ class Entity {
     public function updateSettingRunning($_id, $_value) {
 
         return $this->entity->prepare("UPDATE settings SET app_running = :value WHERE id = :id")
-        ->bindParam(':value', $_value)
-        ->bindParam(':id', $_id)
+        ->bindValue(':value', $_value)
+        ->bindValue(':id', $_id)
         ->execute();
 
     }
