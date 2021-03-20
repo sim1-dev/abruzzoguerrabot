@@ -98,7 +98,7 @@ if(strpos($text, "/avvia") === 0)
     $app_running = $active_setting["app_running"];
     if($username == "TeamBallo") {
         if($app_running == 0) {
-            sendGETMessage(array_keys($active_setting));
+            sendGETMessage(implode(",", $active_setting));
             $settings->updateSettingRunning(1, 1);
             sendGETMessage("app_running: ".$app_running);
             sendGETMessage("app_id: ".$active_setting["id"]);
