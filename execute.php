@@ -34,7 +34,7 @@ if(!$update)
 $message = isset($update['message']) ? $update['message'] : "";
 $messageId = isset($message['message_id']) ? $message['message_id'] : "";
 $chatId = isset($message['chat']['id']) ? $message['chat']['id'] : "";
-//$username = $message["from"]["username"];
+$username = $message["from"]["username"];
 $text = isset($message['text']) ? $message['text'] : "";
 $text = trim($text);
 $text = strtolower($text);
@@ -118,7 +118,7 @@ if(strpos($text, "/env") === 0)
     global $username, $settings;
     sendGETMessage(getenv("CHANNEL_ID"));
     sendGETMessage(getenv("BOT_TOKEN"));
-    sendGETMessage($entity->getActiveSetting()[0]["app_running"]);
+    sendGETMessage($entity->getActiveSetting()["app_running"]);
 }
 
 
