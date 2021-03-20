@@ -47,7 +47,9 @@ if($active_setting["app_running"] == 1) {
             if ($l["realweight"] > 1) {
                 sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].") !");
             } else {
-                sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> ! <br><b>".($realSize - 1)."</b> comuni rimanenti.");
+                sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> ! <br><b>");
+                sleep(1);
+                sendGETMessageToChannel("<b>".($realSize - 1)."</b> comuni rimanenti.");
                 $municipalities->addKill($w["id"]);
             }
             //DECREASE LOOSER WEIGHT
@@ -59,14 +61,19 @@ if($active_setting["app_running"] == 1) {
             //TODO IMPLEMENT STABLE METHOD GET SINGLE ALIVE MUNICIPALITY
             $champion = $municipalities->getRandomMunicipality();
             sendGETMessageToChannel("👑 Il comune di <b>".$champion['name']."</b> ha vinto la sfida tra comuni! 👑");
+            sleep(1);
             $topkillers = $municipalities->getKillsHighscore();
-            sendGETMessageToChannel("Comuni con più uccisioni: <br> 
-                                    1) <b> ".$topkillers[0]['name']." </b> - <b>".$topkillers[0]['kills']."</b> 👑 <br>
-                                    2) <b> ".$topkillers[1]['name']." </b>- <b>".$topkillers[1]['kills']."</b>  <br>
-                                    3) <b> ".$topkillers[2]['name']." </b>- <b>".$topkillers[2]['kills']."</b> <br>
-                                    4) <b> ".$topkillers[3]['name']." </b>- <b>".$topkillers[3]['kills']."</b>  <br>
-                                    5) <b> ".$topkillers[4]['name']." </b>- <b>".$topkillers[4]['kills']."</b>  <br>
-            ");
+            sendGETMessageToChannel("Comuni con più uccisioni:"); 
+            sleep(1);
+            sendGETMessageToChannel("1) <b> ".$topkillers[0]['name']." </b> - <b>".$topkillers[0]['kills']."</b> 👑");
+            sleep(1);
+            sendGETMessageToChannel("2) <b> ".$topkillers[1]['name']." </b>- <b>".$topkillers[1]['kills']."</b>");
+            sleep(1);
+            sendGETMessageToChannel("3) <b> ".$topkillers[2]['name']." </b>- <b>".$topkillers[2]['kills']."</b>");
+            sleep(1);
+            sendGETMessageToChannel("4) <b> ".$topkillers[3]['name']." </b>- <b>".$topkillers[3]['kills']."</b>");
+            sleep(1);
+            sendGETMessageToChannel("5) <b> ".$topkillers[4]['name']." </b>- <b>".$topkillers[4]['kills']."</b>");
             initGuerra(0);
         }
 } else {
