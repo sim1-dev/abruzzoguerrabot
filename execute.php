@@ -188,6 +188,7 @@ if(strpos($text, "/forzascontro") === 0)
                             $alive[$i]["weight"] = $alive[$i]["weight"] - 1;
                             sendGETMessageToChannel("new weight: ".$alive[$i]["weight"]);
                             sendGETMessageToChannel("size of array after: ".sizeOf($alive));
+                            sleep(1);
                         }
                     }
                     //END WEIGHT VALUES
