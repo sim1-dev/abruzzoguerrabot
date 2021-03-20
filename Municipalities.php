@@ -154,7 +154,7 @@ class Municipalities extends Entity {
 
         $result = $this->entity->prepare("SELECT kills FROM municipalities WHERE name = ? LIMIT 1");
         $result->bindParam(1, $_name);
-        return $result->execute()->fetch();
+        return $result->fetch();
 
     }
 
