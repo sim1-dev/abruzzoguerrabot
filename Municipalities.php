@@ -115,8 +115,7 @@ class Municipalities extends Entity {
                 $string.= ", ";
             }
         }
-        $result = $this->entity->prepare("INSERT INTO municipalities (name) VALUES (?)");
-        $result->bindParam(1, $string);
+        $result = $this->entity->prepare("INSERT INTO municipalities (name) VALUES $string");
         return $result->execute();
 
     }
