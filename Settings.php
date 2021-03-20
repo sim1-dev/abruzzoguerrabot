@@ -15,7 +15,8 @@ class Settings extends Entity {
     public function getActiveSetting() {
 
         return $this->entity->query("SELECT 1 FROM settings WHERE active=1")
-        ->fetchAll(\PDO::FETCH_ASSOC)[0];
+        ->fetch();
+       // ->fetchAll(\PDO::FETCH_ASSOC)[0];
 
     }
 
