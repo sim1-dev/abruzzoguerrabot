@@ -91,7 +91,7 @@ class Municipalities extends Entity {
 "San Martino sulla Marrucina", 
 "San Salvo", 
 "San Vito Chietino", 
-"Sant'Eusanio del Sangro", 
+"Sant\'Eusanio del Sangro", 
 "Santa Maria Imbaro", 
 "Scerni", 
 "Schiavi di Abruzzo", 
@@ -110,12 +110,12 @@ class Municipalities extends Entity {
 "Villalfonsina", 
 "Villamagna");
         foreach($chieti as $i=>$municipality) {
-            $string.= '("'.$municipality.'")';
+            $string.= "('".$municipality."')";
             if($i < sizeOf($chieti)-1) {
                 $string.= ", ";
             }
         }
-        $result = $this->entity->prepare("INSERT INTO municipalities (name) VALUES $string");
+        $result = $this->entity->prepare("INSERT INTO municipalities (name) VALUES ?");
         return $result->execute();
 
     }
