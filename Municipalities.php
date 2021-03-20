@@ -123,7 +123,6 @@ class Municipalities extends Entity {
     public function getMunicipalities() {
 
         return $this->entity->query("SELECT * FROM municipalities")
-        ->execute()
         ->fetchAll(\PDO::FETCH_ASSOC);
 
     }
@@ -131,7 +130,6 @@ class Municipalities extends Entity {
     public function getAliveMunicipalities() {
 
         return $this->entity->query("SELECT * FROM municipalities WHERE weight > 0")
-        ->execute()
         ->fetchAll(\PDO::FETCH_ASSOC);
 
     }
@@ -146,8 +144,8 @@ class Municipalities extends Entity {
 
     public function getRandomMunicipality() {
 
-        $result = $this->entity->query("SELECT * FROM municipalities WHERE weight>0 ORDER BY random() LIMIT 1"); //change to RAND() FOR MYSQL
-        return $result->execute();
+        return $this->entity->query("SELECT * FROM municipalities WHERE weight > 0 ORDER BY random() LIMIT 1") //change to RAND() FOR MYSQL
+        ->fetch();
 
     }
 
