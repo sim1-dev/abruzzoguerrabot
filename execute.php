@@ -95,7 +95,7 @@ if(strpos($text, "/lancia") === 0)
         if($app_running == 0) {
             initGuerra(1);
             sendGETMessage("[OK] Nuova guerra avviata!");
-            sendGETMessage("NUOVA GUERRA AVVIATA, PREPARARSI ALLA BATTAGLIA!");
+            sendGETMessageToChannel("NUOVA GUERRA AVVIATA, PREPARARSI ALLA BATTAGLIA!");
         } else {
             sendGETMessage("[NO] Guerra già in esecuzione!");
         }
