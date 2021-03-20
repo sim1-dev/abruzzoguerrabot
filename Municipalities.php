@@ -150,10 +150,25 @@ class Municipalities extends Entity {
 
     }
 
+    public function getKillsByName($_name) {
+
+        $result = $this->entity->prepare("SELECT kills FROM municipalities WHERE name = ? LIMIT 1");
+        $result->bindParam(1, $_name);
+        return $result->execute()->fetch();
+
+    }
+
     public function getRandomMunicipality() {
 
         return $this->entity->query("SELECT * FROM municipalities WHERE weight > 0 ORDER BY random() LIMIT 1") //change to RAND() FOR MYSQL
         ->fetch();
+
+    }
+
+    public function getKillsHighscore() {
+
+        return $this->entity->query("SELECT * FROM municipalities ORDER BY kills DESC LIMIT 5")
+        ->fetchAll(\PDO::FETCH_ASSOC);
 
     }
 
@@ -166,6 +181,12 @@ class Municipalities extends Entity {
         $result = $this->entity->prepare("UPDATE municipalities SET weight = ? WHERE id = ?");
         $result->bindParam(1, $_value);
         $result->bindParam(2, $_id);
+        return $result->execute();
+    }
+
+    public function addKill($_id) {
+        $result = $this->entity->prepare("UPDATE municipalities SET kills = kills+1 WHERE id = ?");
+        $result->bindParam(1, $_id);
         return $result->execute();
     }
 
