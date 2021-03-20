@@ -139,7 +139,6 @@ class Municipalities extends Entity {
     public function getRandomMunicipality() {
 
         $result = $this->entity->prepare("SELECT * FROM municipalities WHERE weight > 0 ORDER BY RANDOM() LIMIT 1"); //change to RAND() FOR MYSQL
-        $result->bindParam(1, $_id);
         return $result->execute()->fetch();
 
     }
