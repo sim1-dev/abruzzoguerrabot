@@ -102,7 +102,7 @@ if(strpos($text, "/avvia") === 0)
             sendGETMessage($app_settings);
             //shell_exec("heroku config:set APP_RUNNING=1");
             //$entity->updateSettingField(1, 'app_running', 1);
-            $entity->updateSettingRunning(1, 1);
+            sendGETMessage($entity->updateSettingRunning(1, 1));
             sendGETMessage("app_running: ".$app_running);
             sendGETMessage("[OK] Guerra avviata!");
         } else {
