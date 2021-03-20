@@ -17,8 +17,9 @@ global $username, $settings, $active_setting;
 $settings = new Settings($db_driver, $db_host, $db_port, $db_user, $db_password, $db_name);
 
 $active_setting = $settings->getActiveSetting();
-
+echo 'ACTIVE SETTINGS ARRAY START ';
 print_r($active_setting);
+echo 'ACTIVE SETTINGS ARRAY END ';
 
 $response = '';
 $channel_id = getenv("CHANNEL_ID");
