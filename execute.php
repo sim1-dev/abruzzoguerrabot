@@ -16,7 +16,7 @@ global $username, $settings, $active_setting;
 
 $settings = new Settings($db_driver, $db_host, $db_port, $db_user, $db_password, $db_name);
 
-$active_setting = $settings->getActiveSetting()[0];
+$active_setting = $settings->getActiveSetting();
 
 print_r($active_setting);
 
@@ -34,7 +34,7 @@ if(!$update)
 $message = isset($update['message']) ? $update['message'] : "";
 $messageId = isset($message['message_id']) ? $message['message_id'] : "";
 $chatId = isset($message['chat']['id']) ? $message['chat']['id'] : "";
-$username = $message["from"]["username"];
+//$username = $message["from"]["username"];
 $text = isset($message['text']) ? $message['text'] : "";
 $text = trim($text);
 $text = strtolower($text);
@@ -101,9 +101,9 @@ if(strpos($text, "/avvia") === 0)
     if($username == "TeamBallo") {
         if($app_running == 0) {
             sendGETMessage($active_setting);
-            //shell_exec("heroku config:set APP_RUNNING=1");
             $entity->updateSettingRunning(1, 1);
             sendGETMessage("app_running: ".$app_running);
+            sendGETMessage("app_id: ".$active_setting["id"]);
             sendGETMessage("[OK] Guerra avviata!");
         } else {
             sendGETMessage("[NO] Guerra già in esecuzione!");
