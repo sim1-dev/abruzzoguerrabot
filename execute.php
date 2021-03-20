@@ -89,7 +89,7 @@ if(strpos($text, "/avvia") === 0)
     if($username == "TeamBallo") {
         if($app_running == 0) {
             //shell_exec("heroku config:set APP_RUNNING=1");
-            $entity->updateSettingField($app_settings["id"], "app_running", 1);
+            $entity->updateSettingField($app_settings["id"], 'app_running', 1);
             sendGETMessage("app_running: ".$app_running);
             sendGETMessage("[OK] Guerra avviata!");
         } else {
