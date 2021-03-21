@@ -13,7 +13,7 @@ $db_user = getenv("DB_USER");
 $db_password = getenv("DB_PASSWORD");
 $db_name = getenv("DB_NAME");
 
-global $username, $settings, $active_setting;
+global $username, $settings, $active_setting, $regno_id;
 
 $settings = new Settings($db_driver, $db_host, $db_port, $db_user, $db_password, $db_name);
 $municipalities = new Municipalities($db_driver, $db_host, $db_port, $db_user, $db_password, $db_name);
@@ -22,6 +22,7 @@ $active_setting = $settings->getActiveSetting();
 
 $response = '';
 $channel_id = (string)getenv("CHANNEL_ID");
+$regno_id = (string)getenv("REGNO_ID"); //your custom group
 $bot_token = (string)getenv("BOT_TOKEN");
 
 $content = file_get_contents("php://input");
@@ -62,20 +63,6 @@ if(strpos($text, "/comunerandom") === 0) //TEST
         sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
     }
 }
-
-/*if(strpos($text, "/morti") === 0) //TEST
-{
-    global $username, $municipalities;
-    if($username == "TeamBallo") {
-        $random = sizeOf($municipalities->getDeadMunicipalities());  //EMPTY = INT
-        foreach($random as $dead) {
-            $message.= $dead["name"]."   ";
-        }
-        sendGETMessage($message);
-    } else {
-        sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
-    }
-}*/
 
 if(strpos($text, "/broadcast") === 0)
 {
@@ -266,7 +253,23 @@ function sendGETMessage($message) {
 }
 
 function sendGETMessageToChannel($message) {
+    sendMessageToRegno($message);
 	global $bot_token, $channel_id;
+    $url = "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$channel_id&text=$message&parse_mode=html";
+    $options = array(
+        'http'=>array(
+            'method'=>"POST",
+            'header'=>"Accept-language: en\r\n" .
+            "Cookie: foo=bar\r\n" .
+            "User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.102011-10-16 20:23:10\r\n"
+	    )
+	);
+	$context = stream_context_create($options);
+	file_get_contents($url, false, $context);
+}
+
+function sendGETMessageToRegno($message) {
+	global $bot_token, $regno_id;
     $url = "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$channel_id&text=$message&parse_mode=html";
     $options = array(
         'http'=>array(
