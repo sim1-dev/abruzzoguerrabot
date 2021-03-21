@@ -53,15 +53,11 @@ if(strpos($text, "/start") === 0)
     }
 }
 
-if(strpos($text, "/comunerandom") === 0) //TEST
+if(strpos($text, "/comunerandom") === 0) //fun command
 {
     global $username, $municipalities;
-    if($username == "TeamBallo") {
-        $random = $municipalities->getRandomMunicipality();
+        $random = $municipalities->getAnyRandomMunicipality();
         sendGETMessage($random["name"]);
-    } else {
-        sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
-    }
 }
 
 if(strpos($text, "/broadcast") === 0)
@@ -154,21 +150,46 @@ if(strpos($text, "/store") === 0)
     }
 }
 
-if(strpos($text, "/stats") === 0)
+if(strpos($text, "/territori") === 0)
 {
     global $username, $municipalities;
+    if($app_running == 1) {
         $topweights = $municipalities->getWeightsHighscore();
-                    sendGETMessage("Comuni con più territori:"); 
-                    sleep(1);
-                    sendGETMessage("1) <b> ".$topweights[0]['name']." </b> - <b>".$topweights[0]['weight']."</b> 🥇");
-                    sleep(1);
-                    sendGETMessage("2) <b> ".$topweights[1]['name']." </b>- <b>".$topweights[1]['weight']."</b> 🥈");
-                    sleep(1);
-                    sendGETMessage("3) <b> ".$topweights[2]['name']." </b>- <b>".$topweights[2]['weight']."</b> 🥉");
-                    sleep(1);
-                    sendGETMessage("4) <b> ".$topweights[3]['name']." </b>- <b>".$topweights[3]['weight']."</b>");
-                    sleep(1);
-                    sendGETMessage("5) <b> ".$topweights[4]['name']." </b>- <b>".$topweights[4]['weight']."</b>");
+        sendGETMessage("Comuni con più territori:"); 
+        sleep(1);
+        sendGETMessage("1) <b> ".$topweights[0]['name']." </b> - <b>".$topweights[0]['weight']."</b> 🥇");
+        sleep(1);
+        sendGETMessage("2) <b> ".$topweights[1]['name']." </b>- <b>".$topweights[1]['weight']."</b> 🥈");
+        sleep(1);
+        sendGETMessage("3) <b> ".$topweights[2]['name']." </b>- <b>".$topweights[2]['weight']."</b> 🥉");
+        sleep(1);
+        sendGETMessage("4) <b> ".$topweights[3]['name']." </b>- <b>".$topweights[3]['weight']."</b>");
+        sleep(1);
+        sendGETMessage("5) <b> ".$topweights[4]['name']." </b>- <b>".$topweights[4]['weight']."</b>");
+    } else {
+        sendGETMessage("[ER] Guerra non attiva!");
+    }
+}
+
+if(strpos($text, "/uccisioni") === 0)
+{
+    global $username, $municipalities;
+    if($app_running == 1) {
+        $topkills = $municipalities->getKillsHighscore();
+        sendGETMessage("Comuni con più uccisioni:"); 
+        sleep(1);
+        sendGETMessage("1) <b> ".$topkills[0]['name']." </b> - <b>".$topkills[0]['kills']."</b> 🥇");
+        sleep(1);
+        sendGETMessage("2) <b> ".$topkills[1]['name']." </b>- <b>".$topkills[1]['kills']."</b> 🥈");
+        sleep(1);
+        sendGETMessage("3) <b> ".$topkills[2]['name']." </b>- <b>".$topkills[2]['kills']."</b> 🥉");
+        sleep(1);
+        sendGETMessage("4) <b> ".$topkills[3]['name']." </b>- <b>".$topkills[3]['kills']."</b>");
+        sleep(1);
+        sendGETMessage("5) <b> ".$topkills[4]['name']." </b>- <b>".$topkills[4]['kills']."</b>");
+    } else {
+        sendGETMessage("[ER] Guerra non attiva!");
+    }
 }
 
 
