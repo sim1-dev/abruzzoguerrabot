@@ -265,7 +265,6 @@ function sendGETMessage($message) {
 }
 
 function sendGETMessageToChannel($message) {
-    sendMessageToRegno($message);
 	global $bot_token, $channel_id;
     $url = "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$channel_id&text=$message&parse_mode=html";
     $options = array(
