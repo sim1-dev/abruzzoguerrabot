@@ -152,7 +152,7 @@ if(strpos($text, "/store") === 0)
 
 if(strpos($text, "/territori") === 0)
 {
-    global $username, $municipalities;
+    global $username, $municipalities, $app_running;
     if($app_running == 1) {
         $topweights = $municipalities->getWeightsHighscore();
         sendGETMessage("Comuni con più territori:"); 
@@ -173,7 +173,7 @@ if(strpos($text, "/territori") === 0)
 
 if(strpos($text, "/uccisioni") === 0)
 {
-    global $username, $municipalities;
+    global $username, $municipalities, $app_running;
     if($app_running == 1) {
         $topkills = $municipalities->getKillsHighscore();
         sendGETMessage("Comuni con più uccisioni:"); 
