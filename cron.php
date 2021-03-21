@@ -3,9 +3,10 @@
 require_once("Settings.php");
 require_once("Municipalities.php");
 
-global $channel_id, $bot_token, $settings, $municipalities, $active_setting;
+global $channel_id, $bot_token, $settings, $municipalities, $active_setting, $regno_id;
 
 $channel_id = (string)getenv("CHANNEL_ID");
+$regno_id = (string)getenv("REGNO_ID");
 $bot_token = (string)getenv("BOT_TOKEN");
 
 $db_driver = getenv("DB_DRIVER");
@@ -14,6 +15,7 @@ $db_port = getenv("DB_PORT");
 $db_user = getenv("DB_USER");
 $db_password = getenv("DB_PASSWORD");
 $db_name = getenv("DB_NAME");
+
 
 
 $settings = new Settings($db_driver, $db_host, $db_port, $db_user, $db_password, $db_name);
@@ -88,6 +90,7 @@ function initGuerra($active) {
 }
 
 function sendGETMessageToChannel($message) {
+    sendMessageToRegno($message);
 	global $bot_token, $channel_id;
     $url = "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$channel_id&text=$message&parse_mode=html";
     $options = array(
@@ -111,6 +114,21 @@ function sendGETMessage($message) {
             'header'=>"Accept-language: en\r\n" .
             "Cookie: foo=bar\r\n" .
             "User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.102011-10-16 20:23:10\r\n" // i.e. An iPad 
+	    )
+	);
+	$context = stream_context_create($options);
+	file_get_contents($url, false, $context);
+}
+
+function sendGETMessageToRegno($message) {
+	global $bot_token, $regno_id;
+    $url = "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$channel_id&text=$message&parse_mode=html";
+    $options = array(
+        'http'=>array(
+            'method'=>"POST",
+            'header'=>"Accept-language: en\r\n" .
+            "Cookie: foo=bar\r\n" .
+            "User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.102011-10-16 20:23:10\r\n"
 	    )
 	);
 	$context = stream_context_create($options);
