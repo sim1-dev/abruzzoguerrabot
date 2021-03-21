@@ -154,6 +154,23 @@ if(strpos($text, "/store") === 0)
     }
 }
 
+if(strpos($text, "/stats") === 0)
+{
+    global $username, $municipalities;
+        $topweights = $municipalities->getWeightsHighscore();
+                    sendGETMessage("Comuni con più territori:"); 
+                    sleep(1);
+                    sendGETMessage("1) <b> ".$topweights[0]['name']." </b> - <b>".$topweights[0]['weight']."</b> 🥇");
+                    sleep(1);
+                    sendGETMessage("2) <b> ".$topweights[1]['name']." </b>- <b>".$topweights[1]['weight']."</b> 🥈");
+                    sleep(1);
+                    sendGETMessage("3) <b> ".$topweights[2]['name']." </b>- <b>".$topweights[2]['weight']."</b> 🥉");
+                    sleep(1);
+                    sendGETMessage("4) <b> ".$topweights[3]['name']." </b>- <b>".$topweights[3]['weight']."</b>");
+                    sleep(1);
+                    sendGETMessage("5) <b> ".$topweights[4]['name']." </b>- <b>".$topweights[4]['weight']."</b>");
+}
+
 
 
 
