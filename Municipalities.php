@@ -165,6 +165,13 @@ class Municipalities extends Entity {
 
     }
 
+    public function getAnyRandomMunicipality() {
+
+        return $this->entity->query("SELECT * FROM municipalities ORDER BY random() LIMIT 1") //change to RAND() FOR MYSQL
+        ->fetch();
+
+    }
+
     public function getKillsHighscore() {
 
         return $this->entity->query("SELECT * FROM municipalities ORDER BY kills DESC LIMIT 5")
