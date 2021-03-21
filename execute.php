@@ -46,7 +46,7 @@ if(strpos($text, "/start") === 0)
 {
     global $username;
     if($username == "TeamBallo") {
-        sendGETMessage($active_setting);
+        sendGETMessage("We creatò!");
     } else {
         sendGETMessage("Segui lo scontro sul canale ufficiale: @AbruzzoGuerra");
     }
