@@ -69,6 +69,8 @@ if(strpos($text, "/broadcast") === 0)
     global $username;
     if($username == "TeamBallo") {
         sendGETMessageToChannel(str_replace("/broadcast ","",$text));
+        sleep(1);
+        sendMessageToRegno(str_replace("/broadcast ","",$text));
     } else {
         sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
     }
@@ -183,10 +185,13 @@ if(strpos($text, "/forzascontro") === 0)
                     }
                     if ($l["realweight"] > 1) {
                         sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].") !");
+                        sendMessageToRegno("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].") !");
                     } else {
                         sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> !");
+                        sendMessageToRegno("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> !");
                         sleep(1);
                         sendGETMessageToChannel("<b>".($realSize - 1)."</b> comuni rimanenti.");
+                        sendMessageToRegno("<b>".($realSize - 1)."</b> comuni rimanenti.");
                         sleep(1);
                         $municipalities->addKill($w["id"]);
                     }
@@ -199,19 +204,26 @@ if(strpos($text, "/forzascontro") === 0)
                     //TODO IMPLEMENT STABLE METHOD GET SINGLE ALIVE MUNICIPALITY
                     $champion = $municipalities->getRandomMunicipality();
                     sendGETMessageToChannel("👑 Il comune di <b>".$champion['name']."</b> ha vinto la sfida tra comuni! 👑");
+                    sendMessageToRegno("👑 Il comune di <b>".$champion['name']."</b> ha vinto la sfida tra comuni! 👑");
                     sleep(1);
                     $topkillers = $municipalities->getKillsHighscore();
                     sendGETMessageToChannel("Comuni con più uccisioni:"); 
+                    sendMessageToRegno("Comuni con più uccisioni:"); 
                     sleep(1);
                     sendGETMessageToChannel("1) <b> ".$topkillers[0]['name']." </b> - <b>".$topkillers[0]['kills']."</b> ⭐⭐⭐");
+                    sendMessageToRegno("1) <b> ".$topkillers[0]['name']." </b> - <b>".$topkillers[0]['kills']."</b> ⭐⭐⭐");
                     sleep(1);
                     sendGETMessageToChannel("2) <b> ".$topkillers[1]['name']." </b>- <b>".$topkillers[1]['kills']."</b> ⭐⭐");
+                    sendMessageToRegno("2) <b> ".$topkillers[1]['name']." </b>- <b>".$topkillers[1]['kills']."</b> ⭐⭐");
                     sleep(1);
                     sendGETMessageToChannel("3) <b> ".$topkillers[2]['name']." </b>- <b>".$topkillers[2]['kills']."</b> ⭐");
+                    sendMessageToRegno("3) <b> ".$topkillers[2]['name']." </b>- <b>".$topkillers[2]['kills']."</b> ⭐");
                     sleep(1);
                     sendGETMessageToChannel("4) <b> ".$topkillers[3]['name']." </b>- <b>".$topkillers[3]['kills']."</b>");
+                    sendMessageToRegno("4) <b> ".$topkillers[3]['name']." </b>- <b>".$topkillers[3]['kills']."</b>");
                     sleep(1);
                     sendGETMessageToChannel("5) <b> ".$topkillers[4]['name']." </b>- <b>".$topkillers[4]['kills']."</b>");
+                    sendMessageToRegno("5) <b> ".$topkillers[4]['name']." </b>- <b>".$topkillers[4]['kills']."</b>");
                     initGuerra(0);
                 }
         } else {
