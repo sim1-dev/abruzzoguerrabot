@@ -1,5 +1,5 @@
-# AbruzzoGuerraBot BETA 3 - @AbruzzoGuerra
-Guerra testuale tra comuni abruzzesi - canale Telegram: @AbruzzoGuerra
+# AbruzzoGuerraBot BETA 3 - Canale Telegram: @AbruzzoGuerra
+Guerra testuale tra comuni abruzzesi
 
 Autore: @TeamBallo
 
