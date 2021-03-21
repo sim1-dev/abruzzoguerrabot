@@ -89,7 +89,7 @@ function initGuerra($active) {
 
 function sendGETMessageToChannel($message) {
 	global $bot_token, $channel_id;
-    $url = "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$channel_id&text=$message";
+    $url = "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$channel_id&text=$message&format=html";
     $options = array(
         'http'=>array(
             'method'=>"POST",
@@ -104,7 +104,7 @@ function sendGETMessageToChannel($message) {
 
 function sendGETMessage($message) {
 	global $bot_token, $chatId;
-    $url = "https://api.telegram.org/bot".$bot_token."/sendMessage?chat_id=".$chatId."&text=".$message;
+    $url = "https://api.telegram.org/bot".$bot_token."/sendMessage?chat_id=".$chatId."&text=".$message."&format=html";
     $options = array(
         'http'=>array(
             'method'=>"POST",
