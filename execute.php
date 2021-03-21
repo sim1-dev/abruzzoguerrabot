@@ -268,7 +268,7 @@ function initGuerra($active) {
 
 function sendGETMessage($message) {
 	global $bot_token, $chatId;
-    $url = "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$chatId&text=$message";
+    $url = "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$chatId&text=$message&parse_mode=html";
     $options = array(
         'http'=>array(
             'method'=>"POST",
