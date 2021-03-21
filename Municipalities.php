@@ -172,6 +172,14 @@ class Municipalities extends Entity {
 
     }
 
+    public function getWeightsHighscore() {
+
+        return $this->entity->query("SELECT * FROM municipalities ORDER BY weight DESC LIMIT 5")
+        ->fetchAll(\PDO::FETCH_ASSOC);
+
+    }
+
+
     public function resetGuerra() {
         $result = $this->entity->query("UPDATE municipalities SET weight = 1 WHERE true");
         $result->execute();
