@@ -11,7 +11,7 @@ Licenza: Open Source (no uso commerciale)
 
 L'applicazione non tiene alcuna traccia di dati personali dei suoi utilizzatori
 
-Largamente ispirato da ItaliaGuerraBot
+Largamente ispirato da ItaliaGuerraBot: https://github.com/fabiozap/ItaliaGuerraBot
 
 
 # Funzionamento
