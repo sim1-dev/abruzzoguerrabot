@@ -141,38 +141,21 @@ if(strpos($text, "/pausa") === 0)
 
 if(strpos($text, "/store") === 0)
 {
-    global $username, $municipalities;
+    global $username, $municipalities, $app_settings;
+    $app_running = $active_setting["app_running"];
     if($username == "TeamBallo") {
-        $municipalities->storeMunicipalities();
-        sendGETMessage("Comuni inseriti");
+        if($app_running == 1) {
+            $municipalities->storeMunicipalities();
+            sendGETMessage("Comuni inseriti");
+        } else {
+            sendGETMessage("[ER] Guerra non attiva!");
+        }
     } else {
         sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
     }
 }
 
 if(strpos($text, "/territori") === 0)
-{
-    global $username, $municipalities, $app_settings;
-    $app_running = $active_setting["app_running"];
-    if($app_running == 1) {
-        $topweights = $municipalities->getWeightsHighscore();
-        sendGETMessage("Comuni con più territori:"); 
-        sleep(1);
-        sendGETMessage("1) <b> ".$topweights[0]['name']." </b> - <b>".$topweights[0]['weight']."</b> 🥇");
-        sleep(1);
-        sendGETMessage("2) <b> ".$topweights[1]['name']." </b>- <b>".$topweights[1]['weight']."</b> 🥈");
-        sleep(1);
-        sendGETMessage("3) <b> ".$topweights[2]['name']." </b>- <b>".$topweights[2]['weight']."</b> 🥉");
-        sleep(1);
-        sendGETMessage("4) <b> ".$topweights[3]['name']." </b>- <b>".$topweights[3]['weight']."</b>");
-        sleep(1);
-        sendGETMessage("5) <b> ".$topweights[4]['name']." </b>- <b>".$topweights[4]['weight']."</b>");
-    } else {
-        sendGETMessage("[ER] Guerra non attiva!");
-    }
-}
-
-if(strpos($text, "/testitori") === 0)
 {
     global $username, $municipalities, $app_settings;
     $app_running = $active_setting["app_running"];
@@ -190,17 +173,7 @@ if(strpos($text, "/uccisioni") === 0)
     $app_running = $active_setting["app_running"];
     if($app_running == 1) {
         $topkills = $municipalities->getKillsHighscore();
-        sendGETMessage("Comuni con più uccisioni:"); 
-        sleep(1);
-        sendGETMessage("1) <b> ".$topkills[0]['name']." </b> - <b>".$topkills[0]['kills']."</b> 🥇");
-        sleep(1);
-        sendGETMessage("2) <b> ".$topkills[1]['name']." </b>- <b>".$topkills[1]['kills']."</b> 🥈");
-        sleep(1);
-        sendGETMessage("3) <b> ".$topkills[2]['name']." </b>- <b>".$topkills[2]['kills']."</b> 🥉");
-        sleep(1);
-        sendGETMessage("4) <b> ".$topkills[3]['name']." </b>- <b>".$topkills[3]['kills']."</b>");
-        sleep(1);
-        sendGETMessage("5) <b> ".$topkills[4]['name']." </b>- <b>".$topkills[4]['kills']."</b>");
+        sendGETMessage("Comuni con più uccisioni:%0A"."1) <b> ".$topkills[0]['name']." </b> - <b>".$topkills[0]['kills']."</b> ⭐⭐⭐%0A"."2) <b> ".$topkills[1]['name']." </b>- <b>".$topkills[1]['kills']."</b> ⭐⭐%0A"."3) <b> ".$topkills[2]['name']." </b>- <b>".$topkills[2]['kills']."</b> ⭐%0A"."4) <b> ".$topkills[3]['name']." </b>- <b>".$topkills[3]['kills']."</b>%0A"."5) <b> ".$topkills[4]['name']." </b>- <b>".$topkills[4]['kills']."</b>"); 
     } else {
         sendGETMessage("[ER] Guerra non attiva!");
     }
@@ -239,12 +212,8 @@ if(strpos($text, "/forzascontro") === 0)
                         sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].") !");
                         sendMessageToRegno("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].") !");
                     } else {
-                        sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> !");
-                        sendMessageToRegno("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> !");
-                        sleep(1);
-                        sendGETMessageToChannel("<b>".($realSize - 1)."</b> comuni rimanenti.");
-                        sendMessageToRegno("<b>".($realSize - 1)."</b> comuni rimanenti.");
-                        sleep(1);
+                        sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> !%0A"."<b>".($realSize - 1)."</b> comuni rimanenti.");
+                        sendMessageToRegno("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> !%0A"."<b>".($realSize - 1)."</b> comuni rimanenti.");
                         $municipalities->addKill($w["id"]);
                     }
                     //DECREASE LOOSER WEIGHT
