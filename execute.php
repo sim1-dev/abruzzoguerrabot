@@ -172,6 +172,18 @@ if(strpos($text, "/territori") === 0)
     }
 }
 
+if(strpos($text, "/testitori") === 0)
+{
+    global $username, $municipalities, $app_settings;
+    $app_running = $active_setting["app_running"];
+    if($app_running == 1) {
+        $topweights = $municipalities->getWeightsHighscore();
+        sendGETMessage("Comuni con più territori:%0A"."1) <b> ".$topweights[0]['name']." </b> - <b>".$topweights[0]['weight']."</b> 🥇%0A"."2) <b> ".$topweights[1]['name']." </b>- <b>".$topweights[1]['weight']."</b> 🥈%0A"."3) <b> ".$topweights[2]['name']." </b>- <b>".$topweights[2]['weight']."</b> 🥉%0A"."4) <b> ".$topweights[3]['name']." </b>- <b>".$topweights[3]['weight']."</b>%0A"."5) <b> ".$topweights[4]['name']." </b>- <b>".$topweights[4]['weight']."</b>"); 
+    } else {
+        sendGETMessage("[ER] Guerra non attiva!");
+    }
+}
+
 if(strpos($text, "/uccisioni") === 0)
 {
     global $username, $municipalities, $app_settings;
