@@ -208,12 +208,60 @@ if(strpos($text, "/forzascontro") === 0)
                     {
                         $l = $alive[rand(0,sizeof($alive)-1)];		
                     }
+                    $destiny = "";
+                    $strength = $w["realweight"]/$l["realweight"];
+                    switch($strength) {
+                        case 1:
+                            $destiny = "";
+                            break;
+                        case 2:
+                            $destiny = "con poca fatica";
+                            break;
+                        case 3:
+                            $destiny = "impedendogli di contrattaccare";
+                            break;
+                        case 4:
+                            $destiny = "senza alcuno sforzo";
+                            break;
+                        case 5:
+                            $destiny = "colpendolo ripetutamente senza pietà";
+                            break;
+                        case 6:
+                            $destiny = "devastandone ogni edificio";
+                            break;
+                        case 7:
+                            $destiny = "convertendone ogni singolo abitante";
+                            break;
+                        case 8:
+                            $destiny = "inglobandone ogni singola particella";
+                            break;
+                        case 9:
+                            $destiny = "annientandone la speranza";
+                                break;
+                        case 10:
+                            $destiny = "massacrandone l'identità";
+                            break;
+                        case 11:
+                            $destiny = "cancellandolo dai libri di storia";
+                                break;
+                        case 12:
+                            $destiny = "eliminandolo dalle cartine geografiche";
+                            break;
+                        case "default":
+                            $destiny = "";
+                            break;
+                    }
+                    if($strength > 12) {
+                        $destiny = "rimuovendolo dall'universo";
+                    }
                     if ($l["realweight"] > 1) {
-                        sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].") !");
-                        sendMessageToRegno("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].") !");
+                        $message = "Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].") !";
+                        sendGETMessageToChannel($message);
+                        sendMessageToRegno($messsage);
                     } else {
-                        sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> !%0A"."<b>".($realSize - 1)."</b> comuni rimanenti.");
-                        sendMessageToRegno("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> !%0A"."<b>".($realSize - 1)."</b> comuni rimanenti.");
+                        $message = "Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> $destiny!%0A"."<b>".($realSize - 1)."</b> comuni rimanenti.";
+                        sendGETMessageToChannel($message);
+                        sendMessageToRegno($messsage);
                         $municipalities->addKill($w["id"]);
                     }
                     //DECREASE LOOSER WEIGHT
