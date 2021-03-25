@@ -42,8 +42,10 @@ class Entity {
 
     }
 
-    public function count($_name = __CLASS__ ) {
-
+    public function count($_name = "") {
+        if($_name == "") {
+            $_name = get_class($this);
+        }
         return $this->entity->query("SELECT COUNT(*) FROM $_name")
         ->fetchColumn();
 
