@@ -35,14 +35,14 @@ class Entity {
 
     }
 
-    public function table($_name) {
+    public function selectAll($_name = __CLASS__ ) {
 
         return $this->entity->query("SELECT * FROM $_name")
         ->fetchAll(\PDO::FETCH_ASSOC);
 
     }
 
-    public function count($_name) {
+    public function count($_name = __CLASS__ ) {
 
         return $this->entity->query("SELECT COUNT(*) FROM $_name")
         ->fetchColumn();

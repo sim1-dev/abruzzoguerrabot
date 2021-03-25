@@ -182,14 +182,14 @@ if(strpos($text, "/uccisioni") === 0)
 
 if(strpos($text, "/table") === 0)
 {
-    global $username, $entity;
-        sendGETMessage($entity->table("municipalities")[0]["name"]); 
+    global $username, $municipalities;
+        sendGETMessage($municipalities->selectAll()[0]["name"]); 
 }
 
 if(strpos($text, "/count") === 0)
 {
-    global $username, $entity;
-        sendGETMessage($entity->count("municipalities")); 
+    global $username, $settings;
+        sendGETMessage($settings->count()); 
 }
 
 
