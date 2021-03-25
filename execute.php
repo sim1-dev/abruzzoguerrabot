@@ -243,7 +243,7 @@ if(strpos($text, "/forzascontro") === 0)
                             break;
                         case 11:
                             $destiny = "cancellandolo dai libri di storia";
-                                break;
+                            break;
                         case 12:
                             $destiny = "eliminandolo dalle cartine geografiche";
                             break;
@@ -254,6 +254,10 @@ if(strpos($text, "/forzascontro") === 0)
                     if($strength > 12) {
                         $destiny = "rimuovendolo dall'universo";
                     }
+                    //START SUBJECT
+                    $subjects = array("il fronte nord", "il fronte sud", "il fronte est", "il fronte ovest", "il centro medico", "il municipio", "gli edifici primari", "le strade principali", "le mura esterne", "gli armamenti", "il centro", "i monumenti", "le chiese", "la zona residenziale", "i centri sociali", "i mezzi di trasporto pubblici", "i condotti idrici", "i collegamenti radio");
+                    $subject = $subjects[rand(0,sizeof($subjects)-1)];
+                    //END SUBJECT
                     if ($l["realweight"] > 1) {
                         $message = "Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].") !";
                         sendGETMessageToChannel($message);

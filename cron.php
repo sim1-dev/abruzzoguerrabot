@@ -46,6 +46,7 @@ if($active_setting["app_running"] == 1) {
             {
                 $l = $alive[rand(0,sizeof($alive)-1)];		
             }
+            //START STRENGTH MESSAGE
             $destiny = "";
             $strength = $w["realweight"]/$l["realweight"];
             switch($strength) {
@@ -81,7 +82,7 @@ if($active_setting["app_running"] == 1) {
                     break;
                 case 11:
                     $destiny = "cancellandolo dai libri di storia";
-                        break;
+                    break;
                 case 12:
                     $destiny = "eliminandolo dalle cartine geografiche";
                     break;
@@ -92,8 +93,14 @@ if($active_setting["app_running"] == 1) {
             if($strength > 12) {
                 $destiny = "rimuovendolo dall'universo";
             }
+            //END STRENGTH MESSAGE
+
+            //START SUBJECT
+            $subjects = array("il fronte nord", "il fronte sud", "il fronte est", "il fronte ovest", "il centro medico", "il municipio", "gli edifici primari", "le strade principali", "le mura esterne", "gli armamenti", "il centro", "i monumenti", "le chiese", "la zona residenziale", "i centri sociali", "i mezzi di trasporto pubblici", "i condotti idrici", "i collegamenti radio");
+            $subject = $subjects[rand(0,sizeof($subjects)-1)];
+            //END SUBJECT
             if ($l["realweight"] > 1) {
-                $message = "Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].") !";
+                $message = "Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito $subject del comune di <b>".$l['name']."</b> (".$l['realweight'].") !";
                 sendGETMessageToChannel($message);
                 sendMessageToRegno($messsage);
             } else {
