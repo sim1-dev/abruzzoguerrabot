@@ -6,18 +6,11 @@ require_once("Municipalities.php");
 
 //APP VARS
 
-$db_driver = getenv("DB_DRIVER");
-$db_host = getenv("DB_HOST");
-$db_port = getenv("DB_PORT");
-$db_user = getenv("DB_USER");
-$db_password = getenv("DB_PASSWORD");
-$db_name = getenv("DB_NAME");
-
 global $username, $settings, $active_setting, $regno_id, $entity;
 
-$entity = new Entity($db_driver, $db_host, $db_port, $db_user, $db_password, $db_name);
-$settings = new Settings($db_driver, $db_host, $db_port, $db_user, $db_password, $db_name);
-$municipalities = new Municipalities($db_driver, $db_host, $db_port, $db_user, $db_password, $db_name);
+$entity = new Entity();
+$settings = new Settings();
+$municipalities = new Municipalities();
 
 $active_setting = $settings->getActiveSetting();
 
