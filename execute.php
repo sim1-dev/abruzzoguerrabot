@@ -259,7 +259,7 @@ if(strpos($text, "/forzascontro") === 0)
                     $subject = $subjects[rand(0,sizeof($subjects)-1)];
                     //END SUBJECT
                     if ($l["realweight"] > 1) {
-                        $message = "Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].") !";
+                        $message = "Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito $subject del comune di <b>".$l['name']."</b> (".$l['realweight'].") !";
                         sendGETMessageToChannel($message);
                         sendMessageToRegno($message);
                     } else {
