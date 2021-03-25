@@ -3,12 +3,13 @@
 require_once("Settings.php");
 require_once("Municipalities.php");
 
-global $channel_id, $bot_token, $settings, $municipalities, $active_setting, $regno_id;
+global $channel_id, $bot_token, $settings, $municipalities, $active_setting, $regno_id, $entity;
 
 $channel_id = (string)getenv("CHANNEL_ID");
 $regno_id = (string)getenv("REGNO_ID");
 $bot_token = (string)getenv("BOT_TOKEN");
 
+$entity = new Entity();
 $settings = new Settings();
 $municipalities = new Municipalities();
 
@@ -87,8 +88,8 @@ if($active_setting["app_running"] == 1) {
             //END STRENGTH MESSAGE
 
             //START SUBJECT
-            $subjects = array("il fronte nord", "il fronte sud", "il fronte est", "il fronte ovest", "il centro medico", "il municipio", "gli edifici primari", "le strade principali", "le mura esterne", "gli armamenti", "il centro", "i monumenti", "le chiese", "la zona residenziale", "i centri sociali", "i mezzi di trasporto pubblici", "i condotti idrici", "i collegamenti radio");
-            $subject = $subjects[rand(0,sizeof($subjects)-1)];
+            $subjects = $entity->selectAll("subjects");
+            $subject = $subjects[rand(0,sizeof($subjects)-1)]["text"];
             //END SUBJECT
             if ($l["realweight"] > 1) {
                 $message = "Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito $subject del comune di <b>".$l['name']."</b> (".$l['realweight'].") !";
@@ -116,8 +117,6 @@ if($active_setting["app_running"] == 1) {
             sendMessageToRegno("Comuni con più uccisioni:%0A"."1) <b> ".$topkills[0]['name']." </b> - <b>".$topkills[0]['kills']."</b> ⭐⭐⭐%0A"."2) <b> ".$topkills[1]['name']." </b>- <b>".$topkills[1]['kills']."</b> ⭐⭐%0A"."3) <b> ".$topkills[2]['name']." </b>- <b>".$topkills[2]['kills']."</b> ⭐%0A"."4) <b> ".$topkills[3]['name']." </b>- <b>".$topkills[3]['kills']."</b>%0A"."5) <b> ".$topkills[4]['name']." </b>- <b>".$topkills[4]['kills']."</b>");
             initGuerra(0);
         }
-} else {
-   // sendGETMessage("[ER] Guerra non attiva!"); //TODO REMOVE
 }
 
 function initGuerra($active) {
