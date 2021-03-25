@@ -35,6 +35,20 @@ class Entity {
 
     }
 
+    public function table($_name) {
+
+        return $this->entity->query("SELECT * FROM $_name")
+        ->fetchAll(\PDO::FETCH_ASSOC);
+
+    }
+
+    public function count($_name) {
+
+        return $this->entity->query("SELECT COUNT(*) FROM $_name")
+        ->fetchColumn();
+
+    }
+
   /*  public function updateSettingField($_id, $_field, $_value) {
 
         $result = $this->entity->prepare("UPDATE settings SET app_running = :value WHERE id = :id");
