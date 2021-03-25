@@ -102,11 +102,11 @@ if($active_setting["app_running"] == 1) {
             if ($l["realweight"] > 1) {
                 $message = "Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito $subject del comune di <b>".$l['name']."</b> (".$l['realweight'].") !";
                 sendGETMessageToChannel($message);
-                sendMessageToRegno($messsage);
+                sendMessageToRegno($message);
             } else {
                 $message = "Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> $destiny!%0A"."<b>".($realSize - 1)."</b> comuni rimanenti.";
                 sendGETMessageToChannel($message);
-                sendMessageToRegno($messsage);
+                sendMessageToRegno($message);
                 $municipalities->addKill($w["id"]);
             }
             //DECREASE LOOSER WEIGHT
