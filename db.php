@@ -5,7 +5,7 @@ class Entity {
     private $db_driver;
     private $db_host;
     private $db_port;
-    private $db_username;
+    private $db_user;
     private $db_password;
     private $db_name;
     protected $entity;
@@ -15,7 +15,7 @@ class Entity {
         $this->db_driver = getenv("DB_DRIVER");
         $this->db_host = getenv("DB_HOST");
         $this->db_port = getenv("DB_PORT");
-        $this->db_username = getenv("DB_USER");
+        $this->db_user = getenv("DB_USER");
         $this->db_password = getenv("DB_PASSWORD");
         $this->db_name = getenv("DB_NAME");
         $db_charset = 'UTF8';
