@@ -61,21 +61,24 @@ if($active_setting["app_running"] == 1) {
                     $destiny = "devastandone ogni edificio";
                     break;
                 case 7:
-                    $destiny = "convertendone ogni singolo abitante";
+                    $destiny = "modificandone la topografia";
                     break;
                 case 8:
-                    $destiny = "inglobandone ogni singola particella";
+                    $destiny = "convertendone ogni singolo abitante";
                     break;
                 case 9:
-                    $destiny = "annientandone la speranza";
-                        break;
+                    $destiny = "inglobandone ogni singola particella";
+                    break;
                 case 10:
-                    $destiny = "massacrandone l'identità";
+                    $destiny = "annientandone la speranza";
                     break;
                 case 11:
-                    $destiny = "cancellandolo dai libri di storia";
+                    $destiny = "massacrandone l'identità";
                     break;
                 case 12:
+                    $destiny = "cancellandolo dai libri di storia";
+                    break;
+                case 13:
                     $destiny = "eliminandolo dalle cartine geografiche";
                     break;
                 case "default":
