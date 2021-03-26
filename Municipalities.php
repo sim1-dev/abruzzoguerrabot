@@ -7,16 +7,16 @@ require_once("db.php");
 class Municipalities extends Entity {
 
     public function storeMunicipalities() {  //COMMENT AFTER USE
-        require_once("data.php");
-        $reader = IOFactory::load("italy_geo.xlsx");
-        $tutti = $reader->getActiveSheet()->toArray(null, true, true, true);
-        foreach($tutti as $i=>$municipality) {
-            $string.= "('".$municipality."')";
-            if($i < sizeOf($tutti)-1) {
+        $reader = IOFactory::load("abr_geo.xlsx");
+        $data = $reader->getActiveSheet()->toArray(null, true, true, true);
+        $string = "";
+        foreach($data as $i=>$municipality) {
+            $string.= "('".pg_escape_string($municipality["A"])."', '".pg_escape_string($municipality["C"])."', '".pg_escape_string($municipality["B"])."', '".$municipality["D"]."', '".pg_escape_string($municipality["A"])."')";
+            if($i < sizeOf($data)) {
                 $string.= ", ";
             }
         }
-        $result = $this->entity->prepare("INSERT INTO municipalities (name) VALUES $string");
+        $result = $this->entity->prepare("INSERT INTO muntest (name, lat, long, provincia, alias) VALUES $string");
         return $result->execute();
 
     }
