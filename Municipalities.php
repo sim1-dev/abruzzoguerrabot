@@ -1,11 +1,15 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 require_once("db.php");
 
 class Municipalities extends Entity {
 
     public function storeMunicipalities() {  //COMMENT AFTER USE
         require_once("data.php");
+        $reader = IOFactory::load("italy_geo.xlsx");
+        $tutti = $reader->getActiveSheet()->toArray(null, true, true, true);
         foreach($tutti as $i=>$municipality) {
             $string.= "('".$municipality."')";
             if($i < sizeOf($tutti)-1) {

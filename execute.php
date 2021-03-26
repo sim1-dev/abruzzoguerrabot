@@ -1,5 +1,7 @@
 <?php 
 
+require 'vendor/autoload.php';
+
 require_once("db.php");
 require_once("Settings.php");
 require_once("Municipalities.php");
