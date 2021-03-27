@@ -5,6 +5,7 @@ require 'vendor/autoload.php';
 require_once("db.php");
 require_once("Settings.php");
 require_once("Municipalities.php");
+require_once("functions.php");
 
 //APP VARS
 
@@ -157,7 +158,7 @@ if(strpos($text, "/territori") === 0)
     $app_running = $active_setting["app_running"];
     if($app_running == 1) {
         $topweights = $municipalities->getWeightsHighscore();
-        sendGETMessage("Comuni con più territori:%0A"."1) <b> ".$topweights[0]['name']." </b> - <b>".$topweights[0]['weight']."</b> 🥇%0A"."2) <b> ".$topweights[1]['name']." </b>- <b>".$topweights[1]['weight']."</b> 🥈%0A"."3) <b> ".$topweights[2]['name']." </b>- <b>".$topweights[2]['weight']."</b> 🥉%0A"."4) <b> ".$topweights[3]['name']." </b>- <b>".$topweights[3]['weight']."</b>%0A"."5) <b> ".$topweights[4]['name']." </b>- <b>".$topweights[4]['weight']."</b>"); 
+        sendGETMessage("Comuni con più territori:%0A"."1) <b> ".$topweights[0]['owner']." </b> - <b>".$topweights[0]['weight']."</b> 🥇%0A"."2) <b> ".$topweights[1]['owner']." </b>- <b>".$topweights[1]['weight']."</b> 🥈%0A"."3) <b> ".$topweights[2]['owner']." </b>- <b>".$topweights[2]['owner']."</b> 🥉%0A"."4) <b> ".$topweights[3]['owner']." </b>- <b>".$topweights[3]['weight']."</b>%0A"."5) <b> ".$topweights[4]['owner']." </b>- <b>".$topweights[4]['weight']."</b>"); 
     } else {
         sendGETMessage("[ER] Guerra non attiva!");
     }
@@ -174,23 +175,6 @@ if(strpos($text, "/uccisioni") === 0)
         sendGETMessage("[ER] Guerra non attiva!");
     }
 }
-
-if(strpos($text, "/table") === 0)
-{
-    global $username, $municipalities;
-        sendGETMessage($municipalities->selectAll()[0]["name"]); 
-}
-
-if(strpos($text, "/count") === 0)
-{
-    global $username, $settings;
-        sendGETMessage($settings->count()); 
-}
-
-
-
-
-
 
 if(strpos($text, "/forzascontro") === 0)
 {
