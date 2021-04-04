@@ -35,7 +35,7 @@ if($active_setting["app_running"] == 1) {
     $wweight = $municipalities->getWeightByName($w["owner"]);
     $lweight = $municipalities->getWeightByName($l["owner"]);
             $destiny = "";
-            $strength = $wweight/$lweight;
+            $strength = $wweight; //TODO IMPLEMENT LOOSER WEIGHT DIVISION FOR GENERAL ATTACK MESSAGES
             switch($strength) {
                 case 1:
                     $destiny = "";
