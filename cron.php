@@ -120,3 +120,4 @@ if($active_setting["app_running"] == 1) {
     }
 
 
+*/
