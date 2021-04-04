@@ -23,7 +23,7 @@ if($active_setting["app_running"] == 1) {
     $realSize = sizeOf($alive);
     for($i = 0; $i < sizeOf($alive); $i++) {
         if($alive[$i]["owner"] != $w["owner"]) {
-            $distance = distance((float)$w["lat"], (float)$w["long"], (float)$alive[$i]["lat"], (float)$alive[$i]["long"]);
+            $distance = distance(floatval($w["lat"]), floatval($w["long"]), floatval($alive[$i]["lat"]), floatval($alive[$i]["long"]));
             if($distance < $mindist) {
                 $mindist = $distance;
                 $l = $alive[$i];
