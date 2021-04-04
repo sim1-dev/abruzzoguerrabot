@@ -14,5 +14,8 @@ echo '<pre>';
 print_r($data);
 echo'</pre>';*/
 
-$mun = new Municipalities("pgsql", "ec2-54-216-48-43.eu-west-1.compute.amazonaws.com", "5432", "ygokedofbdwibn", "5d6a167d165e3b2f58bb679199ce1265f645ff8c661045fe788790d11d42cb9e", "dqse8add65rhh");
+$municipalities = new Municipalities("pgsql", "ec2-54-216-48-43.eu-west-1.compute.amazonaws.com", "5432", "ygokedofbdwibn", "5d6a167d165e3b2f58bb679199ce1265f645ff8c661045fe788790d11d42cb9e", "dqse8add65rhh");
 //$mun->storeMunicipalities();
+
+$alive = $municipalities->selectAll();
+        print_r($alive[1]["owner"]);

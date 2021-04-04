@@ -32,7 +32,7 @@ if(!$update)
 $message = isset($update['message']) ? $update['message'] : "";
 $messageId = isset($message['message_id']) ? $message['message_id'] : "";
 $chatId = isset($message['chat']['id']) ? $message['chat']['id'] : "";
-$username = (string)$message["from"]["username"];
+$username = $message["from"]["username"];
 $text = isset($message['text']) ? $message['text'] : "";
 $text = trim($text);
 $text = strtolower($text);
@@ -191,11 +191,7 @@ if(strpos($text, "/array") === 0)
     global $username;
     if($username == "TeamBallo") {
         $alive = $municipalities->selectAll();
-        sendGETMessage($alive);
-        sendGETMessage($alive[0]);
         sendGETMessage($alive[0]["owner"]);
-        sendGETMessage($alive[0]["name"]);
-        sendGETMessage($alive[0][0]);
     } else {
         sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
     }
