@@ -186,4 +186,22 @@ if(strpos($text, "/forzascontro") === 0)
     }
 }
 
+if(strpos($text, "/array") === 0)
+{
+    global $username;
+    if($username == "TeamBallo") {
+        $alive = $municipalities->selectAll();
+        sendGETMessage($alive);
+        sendGETMessage($alive[0]);
+        sendGETMessage($alive[0]["owner"]);
+        sendGETMessage($alive[0]["name"]);
+        sendGETMessage($alive[0][0]);
+    } else {
+        sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
+    }
+}
+
+
+
+
 ?>
