@@ -22,5 +22,7 @@ $alive = $municipalities->selectAll();
 
 
 //print_r($alive[32]["owner"]);
+$alive = $municipalities->selectAll();
+$w = $alive[rand(0,sizeof($alive)-1)];
 $nome = $alive[32]["owner"];
-print_r($municipalities->getMunicipalityById(627));
+print_r($w["owner"]);

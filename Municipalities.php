@@ -67,7 +67,7 @@ class Municipalities extends Entity {
     public function getWeightByName($_name) {
 
         $result = $this->entity->query("SELECT COUNT(*) FROM municipalities WHERE owner = '$_name'");
-        return $result->fetch();
+        return $result->fetch()["count"];
 
     }
 
