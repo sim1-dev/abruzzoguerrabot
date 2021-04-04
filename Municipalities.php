@@ -43,6 +43,13 @@ class Municipalities extends Entity {
 
     }
 
+    public function getAliveMunicipalitiesNumber() {
+
+        return $this->entity->query("SELECT COUNT(*) FROM municipalities WHERE alive > 0")
+        ->fetch()["count"];
+
+    }
+
     public function getMunicipalityById($_id) {
 
         $result = $this->entity->query("SELECT * FROM municipalities WHERE id = $_id LIMIT 1");

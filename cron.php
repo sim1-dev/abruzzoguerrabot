@@ -21,7 +21,7 @@ if($active_setting["app_running"] == 1) {
     $w = $alive[rand(0,sizeof($alive)-1)];
     $mindist = 999999999;
     $realSize = sizeOf($alive);
-    for($i = 0; $i < $realSize; $i++) {
+    for($i = 0; $i < sizeOf($alive); $i++) {
         if($alive[$i]["owner"] != $w["owner"]) {
             $distance = distance(floatval($w["lat"]), floatval($w["long"]), floatval($alive[$i]["lat"]), floatval($alive[$i]["long"]));
             if($distance < $mindist) {
@@ -98,7 +98,7 @@ if($active_setting["app_running"] == 1) {
                 sendGETMessageToChannel($message);
                 sendMessageToRegno($message);
             } else {
-                $message = "Il comune di <b>".$w['owner']."</b> (".$wweight.") ha sconfitto il comune di <b>".$l['owner']."</b> $destiny!%0A"."<b>".($realSize - 1)."</b> comuni rimanenti.";
+                $message = "Il comune di <b>".$w['owner']."</b> (".$wweight.") ha conquistato il territorio del comune di <b>".$l['owner']."</b> $destiny!%0A"."<b>".($realSize - 1)."</b> comuni rimanenti.";
                 sendGETMessageToChannel($message);
                 sendMessageToRegno($message);
                 $municipalities->addKill($realWinner["id"]);
