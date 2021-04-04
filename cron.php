@@ -15,7 +15,7 @@ $settings = new Settings();
 $municipalities = new Municipalities();
 
 $active_setting = $settings->getActiveSetting();
-/*
+
 if($active_setting["app_running"] == 1) {
     $alive = $municipalities->selectAll();
     $w = $alive[rand(0,sizeof($alive)-1)];
@@ -120,4 +120,3 @@ if($active_setting["app_running"] == 1) {
     }
 
 
-*/
