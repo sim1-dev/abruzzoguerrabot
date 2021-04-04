@@ -45,46 +45,42 @@ class Municipalities extends Entity {
 
     public function getMunicipalityById($_id) {
 
-        $result = $this->entity->prepare("SELECT * FROM municipalities WHERE id = ? LIMIT 1");
-        $result->bindParam(1, $_id);
+        $result = $this->entity->query("SELECT * FROM municipalities WHERE id = $_id LIMIT 1");
         return $result->fetch();
 
     }
 
     public function getMunicipalityByName($_name) {
 
-        $result = $this->entity->prepare("SELECT * FROM municipalities WHERE name = ? LIMIT 1");
-        $result->bindParam(1, $_name);
+        $result = $this->entity->query("SELECT * FROM municipalities WHERE name = '$_name' LIMIT 1");
         return $result->fetch();
 
     }
 
     public function getKillsByName($_name) {
 
-        $result = $this->entity->prepare("SELECT kills FROM municipalities WHERE name = ? LIMIT 1");
-        $result->bindParam(1, $_name);
+        $result = $this->entity->query("SELECT kills FROM municipalities WHERE name = '$_name' LIMIT 1");
         return $result->fetch();
 
     }
 
     public function getWeightByName($_name) {
 
-        $result = $this->entity->prepare("SELECT COUNT(*) FROM municipalities WHERE owner = ?");
-        $result->bindParam(1, $_name);
+        $result = $this->entity->query("SELECT COUNT(*) FROM municipalities WHERE owner = '$_name'");
         return $result->fetch();
 
     }
 
     public function getRandomMunicipality() {
 
-        return $this->entity->query("SELECT * FROM municipalities WHERE alive > 0 ORDER BY random() LIMIT 1") //change to RAND() FOR MYSQL
+        return $this->entity->query("SELECT * FROM municipalities WHERE alive > 0 ORDER BY random() LIMIT 1") //change to RAND() FOR MYSQL and RANDOM() FOR POSTGRE
         ->fetch();
 
     }
 
     public function getAnyRandomMunicipality() {
 
-        return $this->entity->query("SELECT * FROM municipalities ORDER BY random() LIMIT 1") //change to RAND() FOR MYSQL
+        return $this->entity->query("SELECT * FROM municipalities ORDER BY random() LIMIT 1") //change to RAND() FOR MYSQL and RANDOM() FOR POSTGRE
         ->fetch();
 
     }

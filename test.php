@@ -18,4 +18,9 @@ $municipalities = new Municipalities("pgsql", "ec2-54-216-48-43.eu-west-1.comput
 //$mun->storeMunicipalities();
 
 $alive = $municipalities->selectAll();
-        print_r($alive[1]["owner"]);
+
+
+
+//print_r($alive[32]["owner"]);
+$nome = $alive[32]["owner"];
+print_r($municipalities->getMunicipalityById(627));
