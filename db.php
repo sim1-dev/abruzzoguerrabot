@@ -12,12 +12,12 @@ class Entity {
 
     public function __construct($db_driver = "", $db_host = "", $db_port = "", $db_user = "", $db_password="", $db_name = "") {
 
-        $this->db_driver = isset($db_driver) ? $db_driver : getenv("DB_DRIVER");
-        $this->db_host = isset($db_host) ? $db_host : getenv("DB_HOST");
-        $this->db_port = isset($db_port) ? $db_port : getenv("DB_PORT");
-        $this->db_user = isset($db_user) ? $db_user : getenv("DB_USER");
-        $this->db_password = isset($db_password) ? $db_password : getenv("DB_PASSWORD");
-        $this->db_name = isset($db_name) ? $db_name : getenv("DB_NAME");
+        $this->db_driver = !empty($db_driver) ? $db_driver : getenv("DB_DRIVER");
+        $this->db_host = !empty($db_host) ? $db_host : getenv("DB_HOST");
+        $this->db_port = !empty($db_port) ? $db_port : getenv("DB_PORT");
+        $this->db_user = !empty($db_user) ? $db_user : getenv("DB_USER");
+        $this->db_password = !empty($db_password) ? $db_password : getenv("DB_PASSWORD");
+        $this->db_name = !empty($db_name) ? $db_name : getenv("DB_NAME");
         $db_charset = 'UTF8';
 
         $dsn = "$this->db_driver:host=$this->db_host;dbname=$this->db_name;port=$this->db_port";
