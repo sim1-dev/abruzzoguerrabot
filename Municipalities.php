@@ -104,7 +104,7 @@ class Municipalities extends Entity {
     }
 
     public function setOwner($_id, $_name) {
-        $result = $this->entity->prepare("UPDATE muntest SET alias = ? WHERE id = ?");
+        $result = $this->entity->prepare("UPDATE muntest SET owner = ? WHERE id = ?");
         $result->bindParam(1, $_name);
         $result->bindParam(2, $_id);
         return $result->execute();
@@ -115,7 +115,7 @@ class Municipalities extends Entity {
         $result->execute();
         $result = $this->entity->query("UPDATE muntest SET kills = 0 WHERE true");
         $result->execute();
-        $result = $this->entity->query("UPDATE muntest SET alias = name WHERE true");
+        $result = $this->entity->query("UPDATE muntest SET owner = name WHERE true");
         return $result->execute();
     }
 
