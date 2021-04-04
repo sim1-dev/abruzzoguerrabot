@@ -20,7 +20,7 @@ if($active_setting["app_running"] == 1) {
     $alive = $municipalities->selectAll();
     $w = $alive[rand(0,sizeof($alive)-1)];
     $mindist = 999999999;
-    $realSize = sizeOf($alive);
+    $realSize = $municipalities->getAliveMunicipalitiesNumber();
     for($i = 0; $i < sizeOf($alive); $i++) {
         if($alive[$i]["owner"] != $w["owner"]) {
             $distance = distance(floatval($w["lat"]), floatval($w["long"]), floatval($alive[$i]["lat"]), floatval($alive[$i]["long"]));
