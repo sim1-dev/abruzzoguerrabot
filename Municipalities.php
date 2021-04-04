@@ -47,7 +47,7 @@ class Municipalities extends Entity {
 
         $result = $this->entity->prepare("SELECT * FROM municipalities WHERE id = ? LIMIT 1");
         $result->bindParam(1, $_id);
-        return $result->execute()->fetch();
+        return $result->fetch();
 
     }
 
@@ -55,7 +55,7 @@ class Municipalities extends Entity {
 
         $result = $this->entity->prepare("SELECT * FROM municipalities WHERE name = ? LIMIT 1");
         $result->bindParam(1, $_name);
-        return $result->execute()->fetch();
+        return $result->fetch();
 
     }
 
