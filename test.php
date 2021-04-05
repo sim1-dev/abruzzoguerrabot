@@ -25,4 +25,4 @@ $alive = $municipalities->selectAll();
 $l = $alive[32];
 
 
- print_r($municipalities->getMunicipalityById(869));
+ print_r($municipalities->getMunicipalityByName("Sant'Eufemia a Maiella"));

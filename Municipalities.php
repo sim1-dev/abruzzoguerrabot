@@ -61,8 +61,8 @@ class Municipalities extends Entity {
 
     public function getMunicipalityByName($_name) {
 
-        $result = $this->entity->prepare("SELECT * FROM municipalities WHERE name = ? LIMIT 1");
-        $result->bindParam(1, $_name);
+        $result = $this->entity->prepare("SELECT * FROM municipalities WHERE name =:name LIMIT 1");
+        $result->bindParam(':name', $_name);
         $result->execute();
         return $result->fetch();
 
