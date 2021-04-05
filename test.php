@@ -20,9 +20,16 @@ $municipalities = new Municipalities("pgsql", "ec2-54-216-48-43.eu-west-1.comput
 $alive = $municipalities->selectAll();
 
 
+//print_r($alive[32]["name"]);
+//$l = $alive[rand(0,sizeof($alive)-1)];
+$l = $alive[32];
 
-//print_r($alive[32]["owner"]);
-$alive = $municipalities->selectAll();
-$w = $alive[rand(0,sizeof($alive)-1)];
-$nome = $alive[32]["owner"];
-print_r($w["owner"]);
+print_r($l["owner"]);
+print_r($l["name"]);
+
+if($l['name'] !== $l['owner']) {
+    print_r("AAAAAAAAAAAAAAAAAAAAAA");
+} else {
+    print_r($l);
+    //print_r($l['owner']);
+}

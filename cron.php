@@ -22,7 +22,7 @@ if($active_setting["app_running"] == 1) {
     $mindist = 999999999;
     $realSize = $municipalities->getAliveMunicipalitiesNumber();
     for($i = 0; $i < sizeOf($alive); $i++) {
-        if($alive[$i]["owner"] != $w["owner"]) {
+        if($alive[$i]["owner"] !== $w["owner"]) {
             $distance = distance(floatval($w["lat"]), floatval($w["long"]), floatval($alive[$i]["lat"]), floatval($alive[$i]["long"]));
             if($distance < $mindist) {
                 $mindist = $distance;
@@ -90,7 +90,7 @@ if($active_setting["app_running"] == 1) {
             $subject = $subjects[rand(0,sizeof($subjects)-1)]["text"];
             //END SUBJECT
             if ($lweight > 1) {
-                if($l['name'] =! $l['owner']) {
+                if($l['name'] !== $l['owner']) {
                     $message = "Il comune di <b>".$w['owner']."</b> (".$wweight.") ha colpito $subject del comune di <b>".$l['owner']."</b> (".$lweight.") sul territorio di ".$l['name']."!";
                 } else {
                     $message = "Il comune di <b>".$w['owner']."</b> (".$wweight.") ha colpito $subject del comune di <b>".$l['owner']."</b> (".$lweight.")!";
