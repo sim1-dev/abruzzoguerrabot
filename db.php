@@ -10,14 +10,14 @@ class Entity {
     private $db_name;
     protected $entity;
 
-    public function __construct() {
+    public function __construct($db_driver = "", $db_host = "", $db_port = "", $db_user = "", $db_password="", $db_name = "") {
 
-        $this->db_driver = getenv("DB_DRIVER");
-        $this->db_host = getenv("DB_HOST");
-        $this->db_port = getenv("DB_PORT");
-        $this->db_user = getenv("DB_USER");
-        $this->db_password = getenv("DB_PASSWORD");
-        $this->db_name = getenv("DB_NAME");
+        $this->db_driver = !empty($db_driver) ? $db_driver : getenv("DB_DRIVER");
+        $this->db_host = !empty($db_host) ? $db_host : getenv("DB_HOST");
+        $this->db_port = !empty($db_port) ? $db_port : getenv("DB_PORT");
+        $this->db_user = !empty($db_user) ? $db_user : getenv("DB_USER");
+        $this->db_password = !empty($db_password) ? $db_password : getenv("DB_PASSWORD");
+        $this->db_name = !empty($db_name) ? $db_name : getenv("DB_NAME");
         $db_charset = 'UTF8';
 
         $dsn = "$this->db_driver:host=$this->db_host;dbname=$this->db_name;port=$this->db_port";
@@ -32,7 +32,6 @@ class Entity {
         } catch (\PDOException $e) {
             throw new \PDOException($e->getMessage(), (int)$e->getCode());
         }
-
     }
 
     public function selectAll(string $_name = "") {
@@ -41,7 +40,6 @@ class Entity {
         }
         return $this->entity->query("SELECT * FROM $_name")
         ->fetchAll(\PDO::FETCH_ASSOC);
-
     }
 
     public function count(string $_name = "") {
@@ -50,16 +48,5 @@ class Entity {
         }
         return $this->entity->query("SELECT COUNT(*) FROM $_name")
         ->fetchColumn();
-
     }
-
-  /*  public function updateSettingField($_id, $_field, $_value) {
-
-        $result = $this->entity->prepare("UPDATE settings SET app_running = :value WHERE id = :id");
-        $result->bindParam(':value', $_value);
-        $result->bindParam(':id', $_id);
-        $result->execute();
-
-    }*/
-
 }

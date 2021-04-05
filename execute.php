@@ -1,8 +1,11 @@
 <?php 
 
+require 'vendor/autoload.php';
+
 require_once("db.php");
 require_once("Settings.php");
 require_once("Municipalities.php");
+require_once("functions.php");
 
 //APP VARS
 
@@ -29,7 +32,7 @@ if(!$update)
 $message = isset($update['message']) ? $update['message'] : "";
 $messageId = isset($message['message_id']) ? $message['message_id'] : "";
 $chatId = isset($message['chat']['id']) ? $message['chat']['id'] : "";
-$username = (string)$message["from"]["username"];
+$username = $message["from"]["username"];
 $text = isset($message['text']) ? $message['text'] : "";
 $text = trim($text);
 $text = strtolower($text);
@@ -155,7 +158,7 @@ if(strpos($text, "/territori") === 0)
     $app_running = $active_setting["app_running"];
     if($app_running == 1) {
         $topweights = $municipalities->getWeightsHighscore();
-        sendGETMessage("Comuni con più territori:%0A"."1) <b> ".$topweights[0]['name']." </b> - <b>".$topweights[0]['weight']."</b> 🥇%0A"."2) <b> ".$topweights[1]['name']." </b>- <b>".$topweights[1]['weight']."</b> 🥈%0A"."3) <b> ".$topweights[2]['name']." </b>- <b>".$topweights[2]['weight']."</b> 🥉%0A"."4) <b> ".$topweights[3]['name']." </b>- <b>".$topweights[3]['weight']."</b>%0A"."5) <b> ".$topweights[4]['name']." </b>- <b>".$topweights[4]['weight']."</b>"); 
+        sendGETMessage("Comuni con più territori:%0A"."1) <b> ".$topweights[0]['owner']." </b> - <b>".$topweights[0]['weight']."</b> 🥇%0A"."2) <b> ".$topweights[1]['owner']." </b>- <b>".$topweights[1]['weight']."</b> 🥈%0A"."3) <b> ".$topweights[2]['owner']." </b>- <b>".$topweights[2]['owner']."</b> 🥉%0A"."4) <b> ".$topweights[3]['owner']." </b>- <b>".$topweights[3]['weight']."</b>%0A"."5) <b> ".$topweights[4]['owner']." </b>- <b>".$topweights[4]['weight']."</b>"); 
     } else {
         sendGETMessage("[ER] Guerra non attiva!");
     }
@@ -173,209 +176,19 @@ if(strpos($text, "/uccisioni") === 0)
     }
 }
 
-if(strpos($text, "/table") === 0)
-{
-    global $username, $municipalities;
-        sendGETMessage($municipalities->selectAll()[0]["name"]); 
-}
-
-if(strpos($text, "/count") === 0)
-{
-    global $username, $settings;
-        sendGETMessage($settings->count()); 
-}
-
-
-
-
-
-
 if(strpos($text, "/forzascontro") === 0)
 {
     global $username;
     if($username == "TeamBallo") {
-        if($active_setting["app_running"] == 1) {
-            //sendGETMessageToChannel("APP RUNNING"); //TODO REMOVE
-            $alive = $municipalities->getAliveMunicipalities();	
-            $realSize = is_array($alive) ? sizeOf($alive) : 0;
-                if(($realSize) > 1) {
-                    //START WEIGHT VALUES HANDLING
-                    for($i = 0; $i < $realSize; $i++) {
-                        $alive[$i]["realweight"] = $alive[$i]["weight"];
-                        while($alive[$i]["weight"] > 1) {
-                            $extraelement[$i] = $alive[$i];
-                            $extraelement[$i]["weight"] = 1;
-                            array_push($alive, $extraelement[$i]);
-                            $alive[$i]["weight"] = $alive[$i]["weight"] - 1;
-                        }
-                    }
-                    //END WEIGHT VALUES HANDLING
-                    $w = $alive[rand(0,sizeof($alive)-1)];
-                    $l = $alive[rand(0,sizeof($alive)-1)];
-                    while ($w['name'] == $l['name'])
-                    {
-                        $l = $alive[rand(0,sizeof($alive)-1)];		
-                    }
-                    $destiny = "";
-                    $strength = $w["realweight"]/$l["realweight"];
-                    switch($strength) {
-                        case 1:
-                            $destiny = "";
-                            break;
-                        case 2:
-                            $destiny = "con poca fatica";
-                            break;
-                        case 3:
-                            $destiny = "impedendogli di contrattaccare";
-                            break;
-                        case 4:
-                            $destiny = "senza alcuno sforzo";
-                            break;
-                        case 5:
-                            $destiny = "colpendolo ripetutamente senza pietà";
-                            break;
-                        case 6:
-                            $destiny = "devastandone ogni edificio";
-                            break;
-                        case 7:
-                            $destiny = "modificandone la topografia";
-                            break;
-                        case 8:
-                            $destiny = "convertendone ogni singolo abitante";
-                            break;
-                        case 9:
-                            $destiny = "inglobandone ogni singola particella";
-                            break;
-                        case 10:
-                            $destiny = "annientandone la speranza";
-                            break;
-                        case 11:
-                            $destiny = "massacrandone l'identità";
-                            break;
-                        case 12:
-                            $destiny = "cancellandolo dai libri di storia";
-                            break;
-                        case 13:
-                            $destiny = "eliminandolo dalle cartine geografiche";
-                            break;
-                        case "default":
-                            $destiny = "";
-                            break;
-                    }
-                    if($strength > 12) {
-                        $destiny = "rimuovendolo dall'universo";
-                    }
-                    //START SUBJECT
-                    $subjects = $entity->selectAll("subjects");
-                    $subject = $subjects[rand(0,sizeof($subjects)-1)]["text"];
-                    //END SUBJECT
-                    if ($l["realweight"] > 1) {
-                        $message = "Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito $subject del comune di <b>".$l['name']."</b> (".$l['realweight'].") !";
-                        sendGETMessageToChannel($message);
-                        sendMessageToRegno($message);
-                    } else {
-                        $message = "Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> $destiny!%0A"."<b>".($realSize - 1)."</b> comuni rimanenti.";
-                        sendGETMessageToChannel($message);
-                        sendMessageToRegno($message);
-                        $municipalities->addKill($w["id"]);
-                    }
-                    //DECREASE LOOSER WEIGHT
-                    $municipalities->updateMunicipalityWeight($l["id"], $l["realweight"] - 1);
-                    //INCREASE WINNER WEIGHT
-                    $municipalities->updateMunicipalityWeight($w["id"], $w["realweight"] + 1);
-                    unset($alive);
-                } else {
-                    //TODO IMPLEMENT STABLE METHOD GET SINGLE ALIVE MUNICIPALITY
-                    $champion = $municipalities->getRandomMunicipality();
-                    sendGETMessageToChannel("👑 Il comune di <b>".$champion['name']."</b> ha vinto la sfida tra comuni! 👑");
-                    sendMessageToRegno("👑 Il comune di <b>".$champion['name']."</b> ha vinto la sfida tra comuni! 👑");
-                    sleep(1);
-                    $topkillers = $municipalities->getKillsHighscore();
-                    sendGETMessageToChannel("Comuni con più uccisioni:"); 
-                    sendMessageToRegno("Comuni con più uccisioni:"); 
-                    sleep(1);
-                    sendGETMessageToChannel("1) <b> ".$topkillers[0]['name']." </b> - <b>".$topkillers[0]['kills']."</b> ⭐⭐⭐");
-                    sendMessageToRegno("1) <b> ".$topkillers[0]['name']." </b> - <b>".$topkillers[0]['kills']."</b> ⭐⭐⭐");
-                    sleep(1);
-                    sendGETMessageToChannel("2) <b> ".$topkillers[1]['name']." </b>- <b>".$topkillers[1]['kills']."</b> ⭐⭐");
-                    sendMessageToRegno("2) <b> ".$topkillers[1]['name']." </b>- <b>".$topkillers[1]['kills']."</b> ⭐⭐");
-                    sleep(1);
-                    sendGETMessageToChannel("3) <b> ".$topkillers[2]['name']." </b>- <b>".$topkillers[2]['kills']."</b> ⭐");
-                    sendMessageToRegno("3) <b> ".$topkillers[2]['name']." </b>- <b>".$topkillers[2]['kills']."</b> ⭐");
-                    sleep(1);
-                    sendGETMessageToChannel("4) <b> ".$topkillers[3]['name']." </b>- <b>".$topkillers[3]['kills']."</b>");
-                    sendMessageToRegno("4) <b> ".$topkillers[3]['name']." </b>- <b>".$topkillers[3]['kills']."</b>");
-                    sleep(1);
-                    sendGETMessageToChannel("5) <b> ".$topkillers[4]['name']." </b>- <b>".$topkillers[4]['kills']."</b>");
-                    sendMessageToRegno("5) <b> ".$topkillers[4]['name']." </b>- <b>".$topkillers[4]['kills']."</b>");
-                    initGuerra(0);
-                }
+        $app_running = $active_setting["app_running"];
+        if($app_running == 1) {
+            include("cron.php");
         } else {
-            sendGETMessage("[ER] Guerra non attiva!"); //TODO REMOVE
+            sendGETMessage("[ER] Guerra non attiva!");
         }
     } else {
         sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
     }
-}
-
-
-
-
-
-
-
-
-//FUNCTIONS
-
-function initGuerra($active) {
-    global $municipalities, $settings, $active_setting;
-    $municipalities->resetGuerra();
-    $settings->updateSettingRunning($active_setting["id"], $active);
-}
-
-function sendGETMessage($message) {
-	global $bot_token, $chatId;
-    $url = "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$chatId&text=$message&parse_mode=html";
-    $options = array(
-        'http'=>array(
-            'method'=>"POST",
-            'header'=>"Accept-language: en\r\n" .
-            "Cookie: foo=bar\r\n" .
-            "User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.102011-10-16 20:23:10\r\n" // i.e. An iPad 
-	    )
-	);
-	$context = stream_context_create($options);
-	file_get_contents($url, false, $context);
-}
-
-function sendGETMessageToChannel($message) {
-	global $bot_token, $channel_id;
-    $url = "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$channel_id&text=$message&parse_mode=html";
-    $options = array(
-        'http'=>array(
-            'method'=>"POST",
-            'header'=>"Accept-language: en\r\n" .
-            "Cookie: foo=bar\r\n" .
-            "User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.102011-10-16 20:23:10\r\n"
-	    )
-	);
-	$context = stream_context_create($options);
-	file_get_contents($url, false, $context);
-}
-
-function sendMessageToRegno($message) {
-	global $bot_token, $regno_id;
-    $url = "https://api.telegram.org/bot$bot_token/sendMessage?chat_id=$regno_id&text=$message&parse_mode=html";
-    $options = array(
-        'http'=>array(
-            'method'=>"POST",
-            'header'=>"Accept-language: en\r\n" .
-            "Cookie: foo=bar\r\n" .
-            "User-Agent: Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.102011-10-16 20:23:10\r\n"
-	    )
-	);
-	$context = stream_context_create($options);
-	file_get_contents($url, false, $context);
 }
 
 ?>
