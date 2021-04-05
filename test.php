@@ -24,12 +24,5 @@ $alive = $municipalities->selectAll();
 //$l = $alive[rand(0,sizeof($alive)-1)];
 $l = $alive[32];
 
-print_r($l["owner"]);
-print_r($l["name"]);
 
-if($l['name'] !== $l['owner']) {
-    print_r("AAAAAAAAAAAAAAAAAAAAAA");
-} else {
-    print_r($l);
-    //print_r($l['owner']);
-}
+ print_r($municipalities->getMunicipalityById(869));

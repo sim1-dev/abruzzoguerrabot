@@ -52,28 +52,36 @@ class Municipalities extends Entity {
 
     public function getMunicipalityById($_id) {
 
-        $result = $this->entity->query("SELECT * FROM municipalities WHERE id = $_id LIMIT 1");
+        $result = $this->entity->prepare("SELECT * FROM municipalities WHERE id = ? LIMIT 1");
+        $result->bindParam(1, $_id);
+        $result->execute();
         return $result->fetch();
 
     }
 
     public function getMunicipalityByName($_name) {
 
-        $result = $this->entity->query("SELECT * FROM municipalities WHERE name = '$_name' LIMIT 1");
+        $result = $this->entity->prepare("SELECT * FROM municipalities WHERE name = ? LIMIT 1");
+        $result->bindParam(1, $_name);
+        $result->execute();
         return $result->fetch();
 
     }
 
     public function getKillsByName($_name) {
 
-        $result = $this->entity->query("SELECT kills FROM municipalities WHERE name = '$_name' LIMIT 1");
-        return $result->fetch();
+        $result = $this->entity->prepare("SELECT kills FROM municipalities WHERE name = ? LIMIT 1");
+        $result->bindParam(1, $_name);
+        $result->execute();
+        return $result->fetch()["kills"];
 
     }
 
     public function getWeightByName($_name) {
 
-        $result = $this->entity->query("SELECT COUNT(*) FROM municipalities WHERE owner = '$_name'");
+        $result = $this->entity->prepare("SELECT COUNT(*) FROM municipalities WHERE owner = ? ");
+        $result->bindParam(1, $_name);
+        $result->execute();
         return $result->fetch()["count"];
 
     }
