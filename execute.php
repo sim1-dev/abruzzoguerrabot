@@ -180,7 +180,12 @@ if(strpos($text, "/forzascontro") === 0)
 {
     global $username;
     if($username == "TeamBallo") {
-        include("cron.php");
+        $app_running = $active_setting["app_running"];
+        if($app_running == 1) {
+            include("cron.php");
+        } else {
+            sendGETMessage("[ER] Guerra non attiva!");
+        }
     } else {
         sendGETMessage("[ER] Non hai i permessi per accedere a questo comando.");
     }
