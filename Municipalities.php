@@ -101,7 +101,7 @@ class Municipalities extends Entity {
 
     public function getWeightsHighscore() {
 
-        return $this->entity->query("SELECT owner, COUNT(*) as weight FROM municipalities WHERE owner IS NOT NULL GROUP BY owner ORDER BY COUNT(*) DESC LIMIT 3")
+        return $this->entity->query("SELECT owner, COUNT(*) as weight FROM municipalities WHERE owner IS NOT NULL GROUP BY owner ORDER BY COUNT(*) DESC LIMIT 5")
         ->fetchAll(\PDO::FETCH_ASSOC);
 
     }
