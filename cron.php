@@ -20,7 +20,7 @@ if($active_setting["app_running"] == 1) {
     $realSize = $municipalities->getAliveMunicipalitiesNumber();
     if(($realSize) > 0) {
         $alive = $municipalities->selectAll();
-        $w = $alive[rand(0,sizeof($alive)-1)];
+        $w = $alive[rand(0,sizeof($alive))];
         $mindist = 999999999;
         for($i = 0; $i < sizeOf($alive); $i++) {
             if($alive[$i]["owner"] !== $w["owner"]) {
