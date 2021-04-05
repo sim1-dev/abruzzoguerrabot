@@ -18,9 +18,9 @@ $active_setting = $settings->getActiveSetting();
 
 if($active_setting["app_running"] == 1) {
     $realSize = $municipalities->getAliveMunicipalitiesNumber();
-    if(($realSize) > 0) {
+    if(($realSize) > 1) {
         $alive = $municipalities->selectAll();
-        $w = $alive[rand(0,sizeof($alive))];
+        $w = $alive[rand(0,sizeof($alive)-1)];
         $mindist = 999999999;
         for($i = 0; $i < sizeOf($alive); $i++) {
             if($alive[$i]["owner"] !== $w["owner"]) {
@@ -99,7 +99,7 @@ if($active_setting["app_running"] == 1) {
                     sendGETMessageToChannel($message);
                     sendMessageToRegno($message);
                 } else {
-                    $message = "Il comune di <b>".$w['owner']."</b> (".$wweight.") ha conquistato il territorio del comune di <b>".$l['owner']."</b> $destiny!%0A"."<b>".($realSize)."</b> comuni rimanenti.";
+                    $message = "Il comune di <b>".$w['owner']."</b> (".$wweight.") ha conquistato il territorio del comune di <b>".$l['owner']."</b> $destiny!%0A"."<b>".($realSize - 1)."</b> comuni rimanenti.";
                     sendGETMessageToChannel($message);
                     sendMessageToRegno($message);
                     $municipalities->addKill($realWinner["id"]);
@@ -110,7 +110,7 @@ if($active_setting["app_running"] == 1) {
                 unset($alive);
         } else {
             //TODO IMPLEMENT STABLE METHOD GET SINGLE ALIVE MUNICIPALITY
-            $champion = $municipalities->getRandomMunicipality();
+            $champion = $municipalities->getChampionMunicipality();
             sendGETMessageToChannel("👑 Il comune di <b>".$champion['owner']."</b> ha vinto la sfida tra comuni! 👑");
             sendMessageToRegno("👑 Il comune di <b>".$champion['owner']."</b> ha vinto la sfida tra comuni! 👑");
             sleep(3);

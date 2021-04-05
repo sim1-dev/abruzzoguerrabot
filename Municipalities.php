@@ -85,6 +85,13 @@ class Municipalities extends Entity {
 
     }
 
+    public function getChampionMunicipality() {
+
+        return $this->entity->query("SELECT * FROM municipalities WHERE alive > 0 ORDER BY kills LIMIT 1")
+        ->fetch();
+
+    }
+
     public function getAnyRandomMunicipality() {
 
         return $this->entity->query("SELECT * FROM municipalities ORDER BY random() LIMIT 1") //change to RAND() FOR MYSQL and RANDOM() FOR POSTGRE
