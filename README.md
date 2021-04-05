@@ -1,4 +1,4 @@
-# AbruzzoGuerraBot BETA 5 - Canale Telegram: @AbruzzoGuerra
+# AbruzzoGuerraBot 1.1 - Canale Telegram: @AbruzzoGuerra
 Guerra testuale tra comuni abruzzesi
 
 Autore: @TeamBallo
@@ -16,7 +16,7 @@ Largamente ispirato da ItaliaGuerraBot: https://github.com/fabiozap/ItaliaGuerra
 
 # Funzionamento
 
-Ogni X minuti l'applicazione prende due comuni casuali e li fa scontrare tra loro. Il comune vincente guadagna un "punto peso" (territorio), mentre al perdente ne viene sottratto uno. 
+Ogni X minuti l'applicazione prende due comuni vicini e li fa scontrare tra loro. Il comune vincente guadagna un "punto peso" (territorio), mentre al perdente ne viene sottratto uno. 
 Più peso un comune ha e più possibilità ha di attaccare... e di essere attaccato! Una volta arrivato a 0 peso il comune viene automaticamente eliminato dal gioco.
 Quando rimane un solo comune in gioco viene automaticamente dichiarato vincitore, e viene mostrata una classifica dei TOP 5 comuni con più uccisioni.
 
