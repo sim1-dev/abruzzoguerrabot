@@ -186,14 +186,4 @@ if(strpos($text, "/forzascontro") === 0)
     }
 }
 
-if(strpos($text, "/escape") === 0)
-{
-    global $username, $municipalities, $settings;
-    if($username == "TeamBallo") {
-            sendGETMessage($municipalities->getMunicipalityByName("Sant'Eufemia a Maiella"));
-    } else {
-        sendGETMessage("[ER] Non hai accesso a questo comando.");
-    }
-}
-
 ?>
