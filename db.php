@@ -5,19 +5,19 @@ class Entity {
     private $db_driver;
     private $db_host;
     private $db_port;
-    private $db_username;
+    private $db_user;
     private $db_password;
     private $db_name;
     protected $entity;
 
-    public function __construct($_driver, $_host, $_port, $_user, $_password, $_name) {
+    public function __construct() {
 
-        $this->db_driver = $_driver;
-        $this->db_host = $_host;
-        $this->db_port = $_port;
-        $this->db_user = $_user;
-        $this->db_password = $_password;
-        $this->db_name = $_name;
+        $this->db_driver = getenv("DB_DRIVER");
+        $this->db_host = getenv("DB_HOST");
+        $this->db_port = getenv("DB_PORT");
+        $this->db_user = getenv("DB_USER");
+        $this->db_password = getenv("DB_PASSWORD");
+        $this->db_name = getenv("DB_NAME");
         $db_charset = 'UTF8';
 
         $dsn = "$this->db_driver:host=$this->db_host;dbname=$this->db_name;port=$this->db_port";
@@ -32,6 +32,24 @@ class Entity {
         } catch (\PDOException $e) {
             throw new \PDOException($e->getMessage(), (int)$e->getCode());
         }
+
+    }
+
+    public function selectAll(string $_name = "") {
+        if($_name == "") {
+            $_name = get_class($this);
+        }
+        return $this->entity->query("SELECT * FROM $_name")
+        ->fetchAll(\PDO::FETCH_ASSOC);
+
+    }
+
+    public function count(string $_name = "") {
+        if($_name == "") {
+            $_name = get_class($this);
+        }
+        return $this->entity->query("SELECT COUNT(*) FROM $_name")
+        ->fetchColumn();
 
     }
 

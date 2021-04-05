@@ -3,23 +3,15 @@
 require_once("Settings.php");
 require_once("Municipalities.php");
 
-global $channel_id, $bot_token, $settings, $municipalities, $active_setting, $regno_id;
+global $channel_id, $bot_token, $settings, $municipalities, $active_setting, $regno_id, $entity;
 
 $channel_id = (string)getenv("CHANNEL_ID");
 $regno_id = (string)getenv("REGNO_ID");
 $bot_token = (string)getenv("BOT_TOKEN");
 
-$db_driver = getenv("DB_DRIVER");
-$db_host = getenv("DB_HOST");
-$db_port = getenv("DB_PORT");
-$db_user = getenv("DB_USER");
-$db_password = getenv("DB_PASSWORD");
-$db_name = getenv("DB_NAME");
-
-
-
-$settings = new Settings($db_driver, $db_host, $db_port, $db_user, $db_password, $db_name);
-$municipalities = new Municipalities($db_driver, $db_host, $db_port, $db_user, $db_password, $db_name);
+$entity = new Entity();
+$settings = new Settings();
+$municipalities = new Municipalities();
 
 $active_setting = $settings->getActiveSetting();
 
@@ -46,16 +38,70 @@ if($active_setting["app_running"] == 1) {
             {
                 $l = $alive[rand(0,sizeof($alive)-1)];		
             }
+            //START STRENGTH MESSAGE
+            $destiny = "";
+            $strength = $w["realweight"]/$l["realweight"];
+            switch($strength) {
+                case 1:
+                    $destiny = "";
+                    break;
+                case 2:
+                    $destiny = "con poca fatica";
+                    break;
+                case 3:
+                    $destiny = "impedendogli di contrattaccare";
+                    break;
+                case 4:
+                    $destiny = "senza alcuno sforzo";
+                    break;
+                case 5:
+                    $destiny = "colpendolo ripetutamente senza pietà";
+                    break;
+                case 6:
+                    $destiny = "devastandone ogni edificio";
+                    break;
+                case 7:
+                    $destiny = "modificandone la topografia";
+                    break;
+                case 8:
+                    $destiny = "convertendone ogni singolo abitante";
+                    break;
+                case 9:
+                    $destiny = "inglobandone ogni singola particella";
+                    break;
+                case 10:
+                    $destiny = "annientandone la speranza";
+                    break;
+                case 11:
+                    $destiny = "massacrandone l'identità";
+                    break;
+                case 12:
+                    $destiny = "cancellandolo dai libri di storia";
+                    break;
+                case 13:
+                    $destiny = "eliminandolo dalle cartine geografiche";
+                    break;
+                case "default":
+                    $destiny = "";
+                    break;
+            }
+            if($strength > 12) {
+                $destiny = "rimuovendolo dall'universo";
+            }
+            //END STRENGTH MESSAGE
+
+            //START SUBJECT
+            $subjects = $entity->selectAll("subjects");
+            $subject = $subjects[rand(0,sizeof($subjects)-1)]["text"];
+            //END SUBJECT
             if ($l["realweight"] > 1) {
-                sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].") !");
-                sendMessageToRegno("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito il comune di <b>".$l['name']."</b> (".$l['realweight'].") !");
+                $message = "Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha colpito $subject del comune di <b>".$l['name']."</b> (".$l['realweight'].") !";
+                sendGETMessageToChannel($message);
+                sendMessageToRegno($message);
             } else {
-                sendGETMessageToChannel("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> !");
-                sendMessageToRegno("Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> !");
-                sleep(1);
-                sendGETMessageToChannel("<b>".($realSize - 1)."</b> comuni rimanenti.");
-                sendMessageToRegno("<b>".($realSize - 1)."</b> comuni rimanenti.");
-                sleep(1);
+                $message = "Il comune di <b>".$w['name']."</b> (".$w['realweight'].") ha sconfitto il comune di <b>".$l['name']."</b> $destiny!%0A"."<b>".($realSize - 1)."</b> comuni rimanenti.";
+                sendGETMessageToChannel($message);
+                sendMessageToRegno($message);
                 $municipalities->addKill($w["id"]);
             }
             //DECREASE LOOSER WEIGHT
@@ -68,29 +114,12 @@ if($active_setting["app_running"] == 1) {
             $champion = $municipalities->getRandomMunicipality();
             sendGETMessageToChannel("👑 Il comune di <b>".$champion['name']."</b> ha vinto la sfida tra comuni! 👑");
             sendMessageToRegno("👑 Il comune di <b>".$champion['name']."</b> ha vinto la sfida tra comuni! 👑");
-            sleep(1);
-            $topkillers = $municipalities->getKillsHighscore();
-            sendGETMessageToChannel("Comuni con più uccisioni:"); 
-            sendMessageToRegno("Comuni con più uccisioni:"); 
-            sleep(1);
-            sendGETMessageToChannel("1) <b> ".$topkillers[0]['name']." </b> - <b>".$topkillers[0]['kills']."</b> ⭐⭐⭐");
-            sendMessageToRegno("1) <b> ".$topkillers[0]['name']." </b> - <b>".$topkillers[0]['kills']."</b> ⭐⭐⭐");
-            sleep(1);
-            sendGETMessageToChannel("2) <b> ".$topkillers[1]['name']." </b>- <b>".$topkillers[1]['kills']."</b> ⭐⭐");
-            sendMessageToRegno("2) <b> ".$topkillers[1]['name']." </b>- <b>".$topkillers[1]['kills']."</b> ⭐⭐");
-            sleep(1);
-            sendGETMessageToChannel("3) <b> ".$topkillers[2]['name']." </b>- <b>".$topkillers[2]['kills']."</b> ⭐");
-            sendMessageToRegno("3) <b> ".$topkillers[2]['name']." </b>- <b>".$topkillers[2]['kills']."</b> ⭐");
-            sleep(1);
-            sendGETMessageToChannel("4) <b> ".$topkillers[3]['name']." </b>- <b>".$topkillers[3]['kills']."</b>");
-            sendMessageToRegno("4) <b> ".$topkillers[3]['name']." </b>- <b>".$topkillers[3]['kills']."</b>");
-            sleep(1);
-            sendGETMessageToChannel("5) <b> ".$topkillers[4]['name']." </b>- <b>".$topkillers[4]['kills']."</b>");
-            sendMessageToRegno("5) <b> ".$topkillers[4]['name']." </b>- <b>".$topkillers[4]['kills']."</b>");
+            sleep(3);
+            $topkills = $municipalities->getKillsHighscore();
+            sendGETMessage("Comuni con più uccisioni:%0A"."1) <b> ".$topkills[0]['name']." </b> - <b>".$topkills[0]['kills']."</b> ⭐⭐⭐%0A"."2) <b> ".$topkills[1]['name']." </b>- <b>".$topkills[1]['kills']."</b> ⭐⭐%0A"."3) <b> ".$topkills[2]['name']." </b>- <b>".$topkills[2]['kills']."</b> ⭐%0A"."4) <b> ".$topkills[3]['name']." </b>- <b>".$topkills[3]['kills']."</b>%0A"."5) <b> ".$topkills[4]['name']." </b>- <b>".$topkills[4]['kills']."</b>");
+            sendMessageToRegno("Comuni con più uccisioni:%0A"."1) <b> ".$topkills[0]['name']." </b> - <b>".$topkills[0]['kills']."</b> ⭐⭐⭐%0A"."2) <b> ".$topkills[1]['name']." </b>- <b>".$topkills[1]['kills']."</b> ⭐⭐%0A"."3) <b> ".$topkills[2]['name']." </b>- <b>".$topkills[2]['kills']."</b> ⭐%0A"."4) <b> ".$topkills[3]['name']." </b>- <b>".$topkills[3]['kills']."</b>%0A"."5) <b> ".$topkills[4]['name']." </b>- <b>".$topkills[4]['kills']."</b>");
             initGuerra(0);
         }
-} else {
-   // sendGETMessage("[ER] Guerra non attiva!"); //TODO REMOVE
 }
 
 function initGuerra($active) {
